@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CeliaCare</string>
-    <string name="title_home">Inizio</string>
+    <string name="title_home">Benvenuti in CeliaCare!</string>
     <string name="title_dashboard">Istituzione</string>
     <string name="title_notifications">Notifiche</string>
     <string name="title_login">Mio account</string>
@@ -37,4 +37,11 @@
     <string name="welcome_to_app">Benvenuti a CeliaCare</string>
     <string name="email_not_verified">Si prega di verificare l\'e-mail prima di effettuare il login</string>
     <string name="email_verification_sent">Vi è stata inviata nuovamente l\'e-mail di autenticazione</string>
+    <string name="placeTitle">Titolo del luogo</string>
+    <string name="cityTitle">Città in cui si trova il luogo</string>
+    <string name="places_hint">Negozi e ristoranti</string>
+    <string name="news_hint">Notizie sul mondo dei celiaci</string>
+    <string name="community_hint">Chattare con la comunità</string>
+    <string name="myaccount_hint">Accedere al proprio account</string>
+    <string name="home_introduction">Esplorate i luoghi senza glutine, tenetevi aggiornati sulle ultime novità, connettetevi con la comunità e molto altro ancora su Celiapp - benvenuti nel vostro mondo senza glutine!</string>
 </resources>
