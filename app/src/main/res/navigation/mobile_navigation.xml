@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.mfc.celiacare.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.mfc.celiacare.ui.places.PlacesFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_places" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.mfc.celiacare.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.mfc.celiacare.ui.login.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login" >
+    <action
+        android:id="@+id/action_navigation_login_to_navigation_account"
+        app:destination="@id/navigation_account" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_community"
+        android:name="com.mfc.celiacare.ui.community.CommunityFragment"
+        android:label="@string/title_community"
+        tools:layout="@layout/fragment_community" />
+
+    <activity
+        android:id="@+id/navigation_register"
+        android:name="com.mfc.celiacare.ui.login.RegisterActivity"
+        android:label="@string/title_register"
+        tools:layout="@layout/activity_register" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.mfc.celiacare.ui.account.AccountFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_account">
+        <action
+        android:id="@+id/action_navigation_account_to_navigation_login"
+        app:destination="@id/navigation_login" />
+    </fragment>
+</navigation>

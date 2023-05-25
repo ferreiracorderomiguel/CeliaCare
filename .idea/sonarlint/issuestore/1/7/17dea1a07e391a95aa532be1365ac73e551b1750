@@ -1,0 +1,10 @@
+
+c
+java:S1854"ARemove this useless assignment to local variable "homeViewModel".(Àø¡Âýÿÿÿÿ8ÈÄ‹¿ý0
+\
+java:S1161":Add the "@Override" annotation above this method signature(î•Éðûÿÿÿÿ8ÉÄ‹¿ý0
+T
+java:S1481"2Remove this unused "homeViewModel" local variable.(Àø¡Âýÿÿÿÿ8ËÄ‹¿ý0
+]	java:S125&"<This block of commented-out lines of code should be removed.(ÅÝ¾ûÿÿÿÿ8Œ©—¿ý0
+K
+java:S11441"/Remove this unused private "saluteUser" method.(„¯Ô`8Ã˜‰¬‚1

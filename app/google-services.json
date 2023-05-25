@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "134119889369",
+    "project_id": "celiacare-mfercor326v",
+    "storage_bucket": "celiacare-mfercor326v.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134119889369:android:93e5198ff3af626307a1c8",
+        "android_client_info": {
+          "package_name": "com.mfc.celiacare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134119889369-u5aair1kcdgjsp66tksf2ap80qercnc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFOAo7pnN7WZ0LDczM-qmizH3hQluKPDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134119889369-u5aair1kcdgjsp66tksf2ap80qercnc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

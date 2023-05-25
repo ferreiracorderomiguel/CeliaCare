@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">CeliaCare</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Places</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_login">My account</string>
+    <string name="registro">Create a new account</string>
+    <string name="contra">Password</string>
+    <string name="correo" translatable="false">Email</string>
+    <string name="mostrar_contra">Show password</string>
+    <string name="title_community">Community</string>
+    <string name="title_news">News</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_register">New user</string>
+    <string name="already_registered">Already registered?</string>
+    <string name="repite_contra">Password again</string>
+    <string name="name">Full name</string>
+    <string name="title_welcome">Can´t wait for having a new member of the CeliaCare family, welcome abroad!</string>
+    <string name="create_account">Create</string>
+    <string name="suggest_create">Not a member yet?</string>
+    <string name="welcome_back">Hey! Welcome back to CeliaCare</string>
+    <string name="button_login">Login</string>
+    <string name="forgot_password">Forgot my password</string>
+    <string name="email_format">The email format isn\'t correct</string>
+    <string name="password_format">The password is too short</string>
+    <string name="email_required">An email is needed</string>
+    <string name="password_required">A password is needed</string>
+    <string name="password_length">Password needs to have 8 characters or more</string>
+    <string name="email_password_incorrect">Make sure that the email and password are correct</string>
+    <string name="recover_password">Recover password</string>
+    <string name="cancel">Cancel</string>
+    <string name="email_sent">Recovery email sent</string>
+    <string name="email_not_sent">Check that the email is already registered</string>
+    <string name="successful_register">User registered successfully. Remember to verify the account in your email.</string>
+    <string name="failed_register">Make sure that the email isn\'t registered yet.</string>
+    <string name="name_required">The name is required</string>
+    <string name="password_match">Both passwords don\'t match</string>
+    <string name="welcome_to_app">Welcome to CeliaCare</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="email_not_verified">Please verify your email before login</string>
+    <string name="email_verification_sent">You have been sent the authentication email again</string>
+    <string name="placeTitle">Title of the place</string>
+    <string name="cityTitle">City where the place is located</string>
+    <string name="places_hint">Shops and restaurants</string>
+    <string name="news_hint">News about the celiac world</string>
+    <string name="community_hint">Chat with the community</string>
+    <string name="myaccount_hint">Access your account</string>
+</resources>

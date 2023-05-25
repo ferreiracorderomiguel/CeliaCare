@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.places.PlacesFragment"
+    android:orientation="vertical"
+    android:layout_marginBottom="?attr/actionBarSize">
+
+    <fragment
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".ui.places.PlacesFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+    <Button
+        android:id="@+id/buttonMyPlaces"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginRight="90dp"
+        android:text="My Places"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
