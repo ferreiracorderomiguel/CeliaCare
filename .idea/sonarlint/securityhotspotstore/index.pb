@@ -7,12 +7,8 @@ Gapp/src/main/java/com/mfc/celiacare/ui/community/CommunityFragment.java,f\b\fb
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
 H
 app/google-services.json,f\d\fd8d34b142d02ec743a8efefefd2c097961666e9
-e
-5app/src/main/java/com/mfc/celiacare/MainActivity.java,2\e\2e69229ffd9d8dcaee6349731d6f23cfdea29906
 
 Oapp/src/main/java/com/mfc/celiacare/ui/notifications/NotificationsFragment.java,a\1\a164ccdcb5b318eca6fbf3d7ac16975066dc2377
-n
->app/src/main/java/com/mfc/celiacare/ui/home/HomeViewModel.java,f\a\fa6f7d6d55189639d9ca6e4ee4daa3f4347dd693
 @
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 @
@@ -29,9 +25,9 @@ q
 Aapp/src/main/java/com/mfc/celiacare/ui/places/PlacesFragment.java,9\d\9d1cb3a2dd5d6239a048a5e25c81b6ad83bfb283
 r
 Bapp/src/main/java/com/mfc/celiacare/ui/login/RegisterActivity.java,0\b\0bd47898d6a5c8a71e10e196b4d13371a882ad7f
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 o
 ?app/src/main/java/com/mfc/celiacare/ui/login/LoginFragment.java,5\f\5ff1ad3dc8ffeb2b6e8db28670af7d885c94fc89
 s
 Capp/src/main/java/com/mfc/celiacare/ui/account/AccountFragment.java,9\a\9a71efae455ab0b71453416a59a6a081cadb19dc
-m
-=app/src/main/java/com/mfc/celiacare/ui/home/HomeFragment.java,1\7\17dea1a07e391a95aa532be1365ac73e551b1750
