@@ -16,7 +16,7 @@ To get started with CeliaCare, you will need to:
 1. Install the Android SDK and Android Studio.
 2. Clone the CeliaCare repository.
 3. Open the project in Android Studio.
-4. Run the app on your device or emulator.
+4. Run the app on the Pixel 4 emulator with API 33.
 
 ## Features
 
