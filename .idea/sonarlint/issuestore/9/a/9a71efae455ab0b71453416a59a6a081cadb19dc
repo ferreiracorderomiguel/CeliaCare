@@ -1,15 +1,14 @@
 
-£
-java:S1186&"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆÌù±øÿÿÿÿ8ûœ´¬‚1
-V
-java:S1172*"9Remove these unused method parameters "param1", "param2".(ë‡¦“8‚´¬‚1
-E
-java:S11852"(Remove this method to simply inherit it.(ßìê¯8ˆ´¬‚1
-U
-java:S18549"8Remove this useless assignment to local variable "view".(ö˜Å®8Š´¬‚1
-F
-java:S14819")Remove this unused "view" local variable.(ö˜Å®8‹´¬‚1
-X	java:S125H"<This block of commented-out lines of code should be removed.(‰’­ì8´¬‚1
-]	java:S125O"<This block of commented-out lines of code should be removed.(ºşÖ‚ûÿÿÿÿ8´¬‚1
-M
-java:S1144`"+Remove this unused private "logout" method.(¸Ëö­şÿÿÿÿ8’´¬‚1
+C
+java:S1604I"(Make this anonymous inner class a lambda(ñ©şÃùÿÿÿÿ
+œ
+java:S1186&"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆÌù±øÿÿÿÿ
+O
+java:S1172*"9Remove these unused method parameters "param1", "param2".(ë‡¦“
+>
+java:S11852"(Remove this method to simply inherit it.(ßìê¯
+N
+java:S18549"8Remove this useless assignment to local variable "view".(ö˜Å®
+?
+java:S14819")Remove this unused "view" local variable.(ö˜Å®
+V	java:S125O"<This block of commented-out lines of code should be removed.(ºşÖ‚ûÿÿÿÿ

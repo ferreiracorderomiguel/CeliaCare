@@ -69,13 +69,13 @@ public class AccountFragment extends Fragment {
         avatarIv = view.findViewById(R.id.avatarIv);
         nameTv = view.findViewById(R.id.nameTv);
         emailTv = view.findViewById(R.id.emailTv);
-        /*btnExit = view.findViewById(R.id.btnExit);
+        btnExit = view.findViewById(R.id.btnExit);
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
             }
-        });*/
+        });
         //Query query = databaseReference.child("email").equalTo(fUser.getEmail());
         //query.addChildEventListener(new View());
     }
