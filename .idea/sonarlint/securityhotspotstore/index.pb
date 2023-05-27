@@ -15,15 +15,9 @@ w
 Gapp/src/main/java/com/mfc/celiacare/adapters/ListViewPlacesAdapter.java,c\f\cf7a113bfb104276791f072c5359fee14a0e38fe
 j
 :app/src/main/java/com/mfc/celiacare/model/PlacesModel.java,9\0\90e9711da66a06caa9b1658d248eee51147fc70d
-q
-Aapp/src/main/java/com/mfc/celiacare/ui/places/PlacesFragment.java,9\d\9d1cb3a2dd5d6239a048a5e25c81b6ad83bfb283
 r
 Bapp/src/main/java/com/mfc/celiacare/ui/login/RegisterActivity.java,0\b\0bd47898d6a5c8a71e10e196b4d13371a882ad7f
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 o
 ?app/src/main/java/com/mfc/celiacare/ui/login/LoginFragment.java,5\f\5ff1ad3dc8ffeb2b6e8db28670af7d885c94fc89
-e
-5app/src/main/java/com/mfc/celiacare/MainActivity.java,2\e\2e69229ffd9d8dcaee6349731d6f23cfdea29906
-m
-=app/src/main/java/com/mfc/celiacare/ui/home/HomeFragment.java,1\7\17dea1a07e391a95aa532be1365ac73e551b1750

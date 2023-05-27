@@ -28,7 +28,17 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.mfc.celiacare.ui.places.PlacesFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_places" />
+        tools:layout="@layout/fragment_places" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_map"
+            app:destination="@id/navigation_map" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.mfc.celiacare.ui.places.MapFragment"
+        android:label="@string/places_map"
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_notifications"
