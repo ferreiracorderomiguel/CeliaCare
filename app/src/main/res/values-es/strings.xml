@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CeliaCare</string>
-    <string name="title_home">¡Bienvenido a CeliaCare!</string>
+    <string name="title_home">Inicio</string>
     <string name="title_dashboard">Establecimientos</string>
     <string name="title_notifications">Notificaciones</string>
     <string name="title_login">Mi cuenta</string>
@@ -45,4 +45,7 @@
     <string name="myaccount_hint">Accede a tu cuenta</string>
     <string name="home_introduction">Explora lugares sin gluten, mantente al día con las últimas noticias, conéctate con la comunidad y mucho más en Celiapp. ¡Bienvenido a tu mundo sin gluten!</string>
     <string name="home_introduction2">Estas son varias de las opciones que puedes hacer desde la aplicación de CeliaCare:</string>
+    <string name="places_myplaces">Mis lugares</string>
+    <string name="places_map">Mapa</string>
+    <string name="close_map">Cerrar mapa</string>
 </resources>
