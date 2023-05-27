@@ -40,7 +40,8 @@
                     android:padding="20dp"
                     android:textColor="@color/white"/>
 
-                <pl.droidsonroids.gif.GifImageView
+                <!-- pl.droidsonroids.gif.GifImageView -->
+                <ImageView
                     android:layout_marginTop="25dp"
                     android:layout_marginRight="15dp"
                     android:layout_width="100dp"
