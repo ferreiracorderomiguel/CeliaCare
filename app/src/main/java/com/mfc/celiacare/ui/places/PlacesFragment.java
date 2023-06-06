@@ -42,15 +42,12 @@ public class PlacesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*btnMap = view.findViewById(R.id.btnMap);
+        btnMap = view.findViewById(R.id.btnMap);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +60,7 @@ public class PlacesFragment extends Fragment {
             public void onClick(View v) {
                 changeView("myPlaces");
             }
-        });*/
+        });
 
         initializeElements(view);
     }
