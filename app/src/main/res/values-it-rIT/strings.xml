@@ -3,7 +3,7 @@
     <string name="app_name">CeliaCare</string>
     <string name="title_home">Casa</string>
     <string name="title_dashboard">Istituzione</string>
-    <string name="title_notifications">Notifiche</string>
+    <string name="title_notifications">Notizie</string>
     <string name="title_login">Mio account</string>
     <string name="registro">Creare un nuovo account</string>
     <string name="contra">Password</string>
@@ -47,4 +47,7 @@
     <string name="home_introduction2">Queste sono alcune delle opzioni che si possono fare dall\'app CeliaCare:</string>
     <string name="places_myplaces">I miei luoghi</string>
     <string name="places_map">Mappa</string>
+    <string name="close_map">Chiudere la mappa</string>
+    <string name="newsTitle">Titolo della notizia</string>
+    <string name="newsDescription">Descrizione della notizia</string>
 </resources>

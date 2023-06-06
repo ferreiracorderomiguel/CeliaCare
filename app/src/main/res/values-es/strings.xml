@@ -3,7 +3,7 @@
     <string name="app_name">CeliaCare</string>
     <string name="title_home">Inicio</string>
     <string name="title_dashboard">Establecimientos</string>
-    <string name="title_notifications">Notificaciones</string>
+    <string name="title_notifications">Noticias</string>
     <string name="title_login">Mi cuenta</string>
     <string name="registro">Crear una cuenta nueva</string>
     <string name="contra">Contraseña</string>
@@ -48,4 +48,6 @@
     <string name="places_myplaces">Mis lugares</string>
     <string name="places_map">Mapa</string>
     <string name="close_map">Cerrar mapa</string>
+    <string name="newsTitle">Título de la noticia</string>
+    <string name="newsDescription">Descripción de la noticia</string>
 </resources>
