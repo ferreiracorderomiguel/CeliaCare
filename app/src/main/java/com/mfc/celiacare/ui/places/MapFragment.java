@@ -19,8 +19,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mfc.celiacare.R;
-import com.mfc.celiacare.adapters.PlacesAdapter;
-import com.mfc.celiacare.model.PlacesModel;
+import com.mfc.celiacare.model.Places;
 
 import java.util.ArrayList;
 
@@ -29,7 +28,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    ArrayList<PlacesModel> placesData;
+    ArrayList<Places> placesData;
     Button btnBack;
 
     public MapFragment() {
@@ -64,8 +63,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         placesData = new ArrayList<>();
 
-        PlacesModel placesModel = new PlacesModel("Pizzería Roberto", "Calle San Jacinto, 87", "Chipiona", "Pizzería con horno de leña", 1, "954 33 33 33");
-        placesData.add(placesModel);
+        Places places = new Places("Pizzería Roberto", "Calle San Jacinto, 87", "Chipiona", "Pizzería con horno de leña", 1, "954 33 33 33");
+        placesData.add(places);
     }
 
     @Override

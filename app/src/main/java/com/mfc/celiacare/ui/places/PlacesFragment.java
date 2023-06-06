@@ -1,7 +1,6 @@
 package com.mfc.celiacare.ui.places;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.PlacesAdapter;
-import com.mfc.celiacare.model.PlacesModel;
+import com.mfc.celiacare.model.Places;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,16 +68,16 @@ public class PlacesFragment extends Fragment {
         recyclerPlaces = view.findViewById(R.id.recyclerViewPlaces);
         recyclerPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<PlacesModel> placesModelList = new ArrayList<>();
-        placesModelList.add(new PlacesModel("Bulevar Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesModelList.add(new PlacesModel("Pijama Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesModelList.add(new PlacesModel("Doña gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesModelList.add(new PlacesModel("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesModelList.add(new PlacesModel("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesModelList.add(new PlacesModel("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesModelList.add(new PlacesModel("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        List<Places> placesList = new ArrayList<>();
+        placesList.add(new Places("Bulevar Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesList.add(new Places("Pijama Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesList.add(new Places("Doña gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
 
-        placesAdapter = new PlacesAdapter(placesModelList, getContext());
+        placesAdapter = new PlacesAdapter(placesList, getContext());
 
         recyclerPlaces.setAdapter(placesAdapter);
     }

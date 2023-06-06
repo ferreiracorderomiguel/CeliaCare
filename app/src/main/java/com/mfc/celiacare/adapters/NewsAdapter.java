@@ -11,16 +11,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mfc.celiacare.R;
-import com.mfc.celiacare.model.NewsModel;
+import com.mfc.celiacare.model.News;
 
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    private List<NewsModel> newsAdapterList;
+    private List<News> newsAdapterList;
     private Context context;
 
-    public NewsAdapter(List<NewsModel> newsAdapterList, Context context) {
+    public NewsAdapter(List<News> newsAdapterList, Context context) {
         this.newsAdapterList = newsAdapterList;
         this.context = context;
     }

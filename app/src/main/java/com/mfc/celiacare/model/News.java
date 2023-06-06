@@ -1,15 +1,15 @@
 package com.mfc.celiacare.model;
 
-public class NewsModel {
+public class News {
     private String title;
     private String description;
     private String image;
     private String date;
 
-    public NewsModel() {
+    public News() {
     }
 
-    public NewsModel(String title, String description, String image, String date) {
+    public News(String title, String description, String image, String date) {
         this.title = title;
         this.description = description;
         this.image = image;
