@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,6 +68,7 @@ public class PlacesFragment extends Fragment {
     private void initializeElements(View view) {
         recyclerPlaces = view.findViewById(R.id.recyclerViewPlaces);
         recyclerPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerPlaces.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
         List<Places> placesList = new ArrayList<>();
         placesList.add(new Places("Bulevar Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten.", 1, "955971224"));
