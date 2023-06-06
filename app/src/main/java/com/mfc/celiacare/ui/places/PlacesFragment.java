@@ -1,6 +1,7 @@
 package com.mfc.celiacare.ui.places;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mfc.celiacare.R;
+import com.mfc.celiacare.adapters.PlacesAdapter;
+import com.mfc.celiacare.model.PlacesModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlacesFragment extends Fragment {
 
     Button btnMap;
     Button btnMyPlaces;
+    RecyclerView recyclerPlaces;
+    PlacesAdapter placesAdapter;
 
     public PlacesFragment() {
     }
@@ -32,12 +42,15 @@ public class PlacesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnMap = view.findViewById(R.id.btnMap);
+        /*btnMap = view.findViewById(R.id.btnMap);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +63,27 @@ public class PlacesFragment extends Fragment {
             public void onClick(View v) {
                 changeView("myPlaces");
             }
-        });
+        });*/
+
+        initializeElements(view);
+    }
+
+    private void initializeElements(View view) {
+        recyclerPlaces = view.findViewById(R.id.recyclerViewPlaces);
+        recyclerPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        List<PlacesModel> placesModelList = new ArrayList<>();
+        placesModelList.add(new PlacesModel("Bulevar Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesModelList.add(new PlacesModel("Pijama Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesModelList.add(new PlacesModel("Doña gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesModelList.add(new PlacesModel("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesModelList.add(new PlacesModel("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesModelList.add(new PlacesModel("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesModelList.add(new PlacesModel("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+
+        placesAdapter = new PlacesAdapter(placesModelList, getContext());
+
+        recyclerPlaces.setAdapter(placesAdapter);
     }
 
     private void changeView(String view) {
