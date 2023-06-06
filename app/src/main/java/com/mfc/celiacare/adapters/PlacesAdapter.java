@@ -5,24 +5,23 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mfc.celiacare.R;
-import com.mfc.celiacare.model.PlacesModel;
+import com.mfc.celiacare.model.Places;
 
 import java.util.List;
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder>{
     // https://www.youtube.com/watch?v=-fiZaeNynFk
 
-    private List<PlacesModel> placesModelList;
+    private List<Places> placesList;
     private Context context;
 
-    public PlacesAdapter(List<PlacesModel> placesModelList, Context context) {
-        this.placesModelList = placesModelList;
+    public PlacesAdapter(List<Places> placesList, Context context) {
+        this.placesList = placesList;
         this.context = context;
     }
 
@@ -36,13 +35,13 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@androidx.annotation.NonNull ViewHolder holder, int position) {
         //holder.list_image.setImageResource(placesModelList.get(position).getImage());
-        holder.titleTextView.setText(placesModelList.get(position).getName());
-        holder.cityTextView.setText(placesModelList.get(position).getCity());
+        holder.titleTextView.setText(placesList.get(position).getName());
+        holder.cityTextView.setText(placesList.get(position).getCity());
     }
 
     @Override
     public int getItemCount() {
-        return placesModelList.size();
+        return placesList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

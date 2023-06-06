@@ -1,8 +1,6 @@
 package com.mfc.celiacare.model;
 
-import android.media.Image;
-
-public class PlacesModel {
+public class Places {
     private String name;
     private String streetAddress;
     private String city;
@@ -10,10 +8,10 @@ public class PlacesModel {
     private Integer image;
     private String phoneNumber;
 
-    public PlacesModel() {
+    public Places() {
     }
 
-    public PlacesModel(String placeName, String streetAddress, String city, String description, Integer image, String phoneNumber) {
+    public Places(String placeName, String streetAddress, String city, String description, Integer image, String phoneNumber) {
         this.name = placeName;
         this.streetAddress = streetAddress;
         this.city = city;

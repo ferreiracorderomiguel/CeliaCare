@@ -16,11 +16,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.NewsAdapter;
-import com.mfc.celiacare.model.NewsModel;
+import com.mfc.celiacare.model.News;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class NewsFragment extends Fragment {
 
     RecyclerView recyclerNews;
     NewsAdapter newsAdapter;
-    List<NewsModel> newsModelList = new ArrayList<>();
+    List<News> newsList = new ArrayList<>();
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
@@ -56,37 +55,50 @@ public class NewsFragment extends Fragment {
     }
 
     private void getNewsFromFirebase() {
-        // https://www.youtube.com/watch?v=8FN0Itw28LE&list=PLs1bCj3TvmWmM-qN3FsCuPTTX-29I8Gh7&index=6
-        Query query = databaseReference.orderByChild("date");
-        query.addValueEventListener(new ValueEventListener() {
+        Log.d("NOTICIAS: ", "getNewsFromFirebase");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot newsSnapshot : snapshot.getChildren()) {
-                    NewsModel newsModel = newsSnapshot.getValue(NewsModel.class);
-                    newsModelList.add(newsModel);
-                    Log.d("News", newsModel.getTitle());
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("NOTICIAS: ", "onDataChange");
+                newsList.clear(); // Limpiar la lista existente
+
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    // Obtener el objeto NewsModel del hijo actual
+                    String title = childSnapshot.child("title").getValue(String.class);
+                    String description = childSnapshot.child("description").getValue(String.class);
+                    String image = childSnapshot.child("image").getValue(String.class);
+                    String date = childSnapshot.child("date").getValue(String.class);
+
+                    News news = new News(title, description, image, date);
+                    newsList.add(news);
                 }
+
+                // Actualizar el adaptador después de obtener los datos
+                newsAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("ERROR: ", error.getMessage());
             }
         });
     }
+
+
 
     private void initializeElements(View view) {
         recyclerNews = view.findViewById(R.id.recyclerViewNews);
         recyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        newsModelList.add(new NewsModel("Noticia 1", "Descripción", "Imagen", "06/06/2023"));
-        newsModelList.add(new NewsModel("Noticia 2", "Descripción", "Imagen", "06/06/2023"));
-        newsModelList.add(new NewsModel("Noticia 3", "Descripción", "Imagen", "06/06/2023"));
-        newsModelList.add(new NewsModel("Noticia 4", "Descripción", "Imagen", "06/06/2023"));
-        newsModelList.add(new NewsModel("Noticia 5", "Descripción", "Imagen", "06/06/2023"));
-        newsModelList.add(new NewsModel("Noticia 6", "Descripción", "Imagen", "06/06/2023"));
+        newsList.add(new News("Noticia 1", "Descripción", "Imagen", "06/06/2023"));
+        newsList.add(new News("Noticia 2", "Descripción", "Imagen", "06/06/2023"));
+        newsList.add(new News("Noticia 3", "Descripción", "Imagen", "06/06/2023"));
+        newsList.add(new News("Noticia 4", "Descripción", "Imagen", "06/06/2023"));
+        newsList.add(new News("Noticia 5", "Descripción", "Imagen", "06/06/2023"));
+        newsList.add(new News("Noticia 6", "Descripción", "Imagen", "06/06/2023"));
 
-        newsAdapter = new NewsAdapter(newsModelList, getContext());
+        newsAdapter = new NewsAdapter(newsList, getContext());
         recyclerNews.setAdapter(newsAdapter);
     }
 }
