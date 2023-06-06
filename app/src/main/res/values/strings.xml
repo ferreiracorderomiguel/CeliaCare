@@ -54,4 +54,5 @@
     <string name="close_map">Close map</string>
     <string name="newsTitle">Title of the news</string>
     <string name="newsDescription">Description of the news</string>
+    <string name="descriptionTitle">Description of the place</string>
 </resources>
