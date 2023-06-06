@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -88,8 +89,9 @@ public class NewsFragment extends Fragment {
     private void initializeElements(View view) {
         recyclerNews = view.findViewById(R.id.recyclerViewNews);
         recyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerNews.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
-        newsList.add(new News("Noticia 1", "Descripción", "Imagen", "06/06/2023"));
+        newsList.add(new News("FACE lanza una encuesta para conocer la realidad social y sanitaria de las personas celiacas", "Desde FACE y las asociaciones miembros vamos a lanzar una encuesta como parte de un proyecto que pretende conocer la realidad social y sanitaria de las personas con enfermedad celiaca en España.", "Imagen", "06/06/2023"));
         newsList.add(new News("Noticia 2", "Descripción", "Imagen", "06/06/2023"));
         newsList.add(new News("Noticia 3", "Descripción", "Imagen", "06/06/2023"));
         newsList.add(new News("Noticia 4", "Descripción", "Imagen", "06/06/2023"));
