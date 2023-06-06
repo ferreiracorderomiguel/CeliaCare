@@ -3,7 +3,7 @@ package com.mfc.celiacare.model;
 import android.media.Image;
 
 public class PlacesModel {
-    private String placeName;
+    private String name;
     private String streetAddress;
     private String city;
     private String description;
@@ -14,7 +14,7 @@ public class PlacesModel {
     }
 
     public PlacesModel(String placeName, String streetAddress, String city, String description, Integer image, String phoneNumber) {
-        this.placeName = placeName;
+        this.name = placeName;
         this.streetAddress = streetAddress;
         this.city = city;
         this.description = description;
@@ -22,12 +22,12 @@ public class PlacesModel {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPlaceName() {
-        return placeName;
+    public String getName() {
+        return name;
     }
 
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
+    public void setName(String placeName) {
+        this.name = placeName;
     }
 
     public String getStreetAddress() {
@@ -68,5 +68,17 @@ public class PlacesModel {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "PlacesModel{" +
+                "name='" + name + '\'' +
+                ", streetAddress='" + streetAddress + '\'' +
+                ", city='" + city + '\'' +
+                ", description='" + description + '\'' +
+                ", image=" + image +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
