@@ -37,6 +37,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         //holder.list_image.setImageResource(placesModelList.get(position).getImage());
         holder.titleTextView.setText(placesList.get(position).getName());
         holder.cityTextView.setText(placesList.get(position).getCity());
+        holder.descriptionTextView.setText(placesList.get(position).getDescription());
     }
 
     @Override
@@ -49,12 +50,14 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         //private ImageView list_image;
         private TextView titleTextView;
         private TextView cityTextView;
+        private TextView descriptionTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             //list_image = itemView.findViewById(R.id.list_image);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             cityTextView = itemView.findViewById(R.id.cityTextView);
+            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
         }
     }
 

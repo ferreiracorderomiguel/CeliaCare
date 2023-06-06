@@ -17,13 +17,7 @@ Bapp/src/main/java/com/mfc/celiacare/ui/login/RegisterActivity.java,0\b\0bd4789
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 o
 ?app/src/main/java/com/mfc/celiacare/ui/login/LoginFragment.java,5\f\5ff1ad3dc8ffeb2b6e8db28670af7d885c94fc89
-q
-Aapp/src/main/java/com/mfc/celiacare/ui/places/PlacesFragment.java,9\d\9d1cb3a2dd5d6239a048a5e25c81b6ad83bfb283
 n
 >app/src/main/java/com/mfc/celiacare/ui/places/MapFragment.java,d\7\d7868ba9ea5be327194c374d27b7cc2a71a9809f
-m
-=app/src/main/java/com/mfc/celiacare/adapters/NewsAdapter.java,3\7\370c481c49526bb797b92ceb5e9f30c63e3e0275
 c
 3app/src/main/java/com/mfc/celiacare/model/News.java,3\e\3e12c2914f107bf97530bd1068912c35de83fbf5
-m
-=app/src/main/java/com/mfc/celiacare/ui/news/NewsFragment.java,c\4\c458a366c40e651c47cc048ea517214d4af80e1b

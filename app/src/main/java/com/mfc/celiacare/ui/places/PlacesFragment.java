@@ -69,9 +69,11 @@ public class PlacesFragment extends Fragment {
         recyclerPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
 
         List<Places> placesList = new ArrayList<>();
-        placesList.add(new Places("Bulevar Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesList.add(new Places("Pijama Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesList.add(new Places("Doña gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
+        placesList.add(new Places("Bulevar Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten.", 1, "955971224"));
+        placesList.add(new Places("Restaurante Jábega, arrocería & marisquería", "Avenida Kansas City, 92. 41007 Sevilla.", "Nervión, Sevilla", "A finales de este mes termina su protocolo de adhesión el restaurante Jábega, una arrocería valenciana con una cocina que combina lo moderno con lo clásico.\n" +
+                "\n" +
+                "Además de sus arroces podéis disfruta de un gran surtido de marisco además de unas riquísimas tapas.", 1, "955971224"));
+        placesList.add(new Places("Grosso Napoletano", "Calle Alameda de Hércules, 46. 41002, Sevilla.", "AdH, Sevilla", "Un horno de leña, un fuego encendido y todos nuestros productos sin gluten, para poder disfrutar de la auténtica pizza napolitana 100% gluten free en Alameda de Hércules 46. La misma esencia de siempre para que todo el mundo se siente a la mesa, menos el gluten. Si somos la 3ª mejor cadena de pizzerías del mundo y la primera de España, no deberías perdértela. ", 1, "955971224"));
         placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
         placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
         placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));

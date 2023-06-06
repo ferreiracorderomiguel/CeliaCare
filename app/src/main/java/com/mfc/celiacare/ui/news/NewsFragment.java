@@ -61,10 +61,9 @@ public class NewsFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("NOTICIAS: ", "onDataChange");
-                newsList.clear(); // Limpiar la lista existente
+                newsList.clear();
 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    // Obtener el objeto NewsModel del hijo actual
                     String title = childSnapshot.child("title").getValue(String.class);
                     String description = childSnapshot.child("description").getValue(String.class);
                     String image = childSnapshot.child("image").getValue(String.class);
@@ -74,7 +73,6 @@ public class NewsFragment extends Fragment {
                     newsList.add(news);
                 }
 
-                // Actualizar el adaptador después de obtener los datos
                 newsAdapter.notifyDataSetChanged();
             }
 
