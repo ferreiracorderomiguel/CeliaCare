@@ -45,7 +45,7 @@ public class PlacesFragment extends Fragment {
     List<Places> placesList = new ArrayList<>();
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    SwipeRefreshLayout swipeNews;
+    SwipeRefreshLayout swipePlaces;
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
 
     public PlacesFragment() {
@@ -126,6 +126,14 @@ public class PlacesFragment extends Fragment {
         placesAdapter.setPlacesFragment(this);
 
         recyclerPlaces.setAdapter(placesAdapter);
+        swipePlaces = view.findViewById(R.id.swipePlaces);
+        swipePlaces.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPlacesFromFirebase();
+                swipePlaces.setRefreshing(false);
+            }
+        });
     }
 
     public void openPlaceDetails(Places places) {
