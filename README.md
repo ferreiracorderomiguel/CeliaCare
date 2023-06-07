@@ -28,7 +28,7 @@ CeliaCare has a number of features that make it a valuable tool for celiacs, inc
 
 ## Screenshots
 
-![Home screen](screenshots/home_screen.png)
+![Home screen](src/res/drawable/home_page_demo.png)
 
 ## Requirements
 

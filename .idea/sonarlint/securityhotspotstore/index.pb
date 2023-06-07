@@ -11,8 +11,6 @@ o
 ?app/src/main/java/com/mfc/celiacare/ui/admin/AdminFragment.java,e\a\eae264a04084a6e2225250e89cfebcd75acd43d6
 r
 Bapp/src/main/java/com/mfc/celiacare/ui/login/RegisterActivity.java,0\b\0bd47898d6a5c8a71e10e196b4d13371a882ad7f
-9
-	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 o
 ?app/src/main/java/com/mfc/celiacare/ui/login/LoginFragment.java,5\f\5ff1ad3dc8ffeb2b6e8db28670af7d885c94fc89
 n
