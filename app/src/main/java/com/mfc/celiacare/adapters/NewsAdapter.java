@@ -43,18 +43,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Manejar el clic en el elemento de la lista
-                // Navegar a otro fragmento y pasar datos si es necesario
-                /*Fragment fragment = new DetailFragment();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("news", news);
-                fragment.setArguments(bundle);
-                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .addToBackStack(null)
-                        .commit();*/
-                Toast.makeText(context, "Clicked on " + newsAdapterList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Clicked on "+ position + " " + newsAdapterList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
     }
