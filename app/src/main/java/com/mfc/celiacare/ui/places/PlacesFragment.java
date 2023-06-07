@@ -137,10 +137,10 @@ public class PlacesFragment extends Fragment {
     }
 
     public void openPlaceDetails(Places places) {
-        NavController navAccount = Navigation.findNavController(getView());
+        NavController navAccount = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
         args.putSerializable("places", places);
-        navAccount.navigate(R.id.action_navigation_places_to_navigation_places_scrolling);
+        navAccount.navigate(R.id.action_navigation_places_to_navigation_places_scrolling, args);
     }
 
     private void changeView(String view) {

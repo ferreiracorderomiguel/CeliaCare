@@ -2,13 +2,12 @@ package com.mfc.celiacare.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mfc.celiacare.R;
@@ -19,12 +18,12 @@ import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    private List<News> newsAdapterList;
+    private List<News> newsList;
     private Context context;
     private NewsFragment newsFragment;
 
-    public NewsAdapter(List<News> newsAdapterList, Context context) {
-        this.newsAdapterList = newsAdapterList;
+    public NewsAdapter(List<News> newsList, Context context) {
+        this.newsList = newsList;
         this.context = context;
     }
 
@@ -38,21 +37,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@androidx.annotation.NonNull ViewHolder holder, int position) {
         //holder.list_image.setImageResource(placesModelList.get(position).getImage());
-        holder.newsTitleTextView.setText(newsAdapterList.get(position).getTitle());
-        holder.descriptionTextView.setText(newsAdapterList.get(position).getDescription());
-        holder.lastUpdatedTextView.setText(newsAdapterList.get(position).getTimeSinceUpdated());
+        holder.newsTitleTextView.setText(newsList.get(position).getTitle());
+        holder.descriptionTextView.setText(newsList.get(position).getDescription());
+        holder.lastUpdatedTextView.setText(newsList.get(position).getTimeSinceUpdated());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newsFragment.openNewsDetails(newsAdapterList.get(position));
+                newsFragment.openNewsDetails(newsList.get(position));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return newsAdapterList.size();
+        return newsList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
