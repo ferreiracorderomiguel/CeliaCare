@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +41,7 @@ public class NewsFragment extends Fragment {
     List<News> newsList = new ArrayList<>();
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    SwipeRefreshLayout swipeNews;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -107,16 +109,16 @@ public class NewsFragment extends Fragment {
             } else {
                 long differenceHours = TimeUnit.MINUTES.toHours(differenceMinutes);
                 if (differenceHours < 24) {
-                    return differenceHours + " H";
+                    return differenceHours + " h";
                 } else if (differenceHours < 24 * 30) {
                     long differenceDays = differenceHours / 24;
-                    return differenceDays + " D";
+                    return differenceDays + " d";
                 } else if (differenceHours < 24 * 365) {
                     long differenceMonths = differenceHours / (24 * 30);
                     return differenceMonths + " M";
                 } else {
                     long differenceYears = differenceHours / (24 * 365);
-                    return differenceYears + " A";
+                    return differenceYears + " a";
                 }
             }
         } catch (ParseException e) {
@@ -135,12 +137,21 @@ public class NewsFragment extends Fragment {
         newsAdapter.setNewsFragment(this);
 
         recyclerNews.setAdapter(newsAdapter);
+        swipeNews = view.findViewById(R.id.swipeNews);
+        swipeNews.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getNewsFromFirebase();
+                swipeNews.setRefreshing(false);
+
+            }
+        });
     }
 
     public void openNewsDetails(News news) {
         NavController navController = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
-        args.putSerializable("news", news); // Pasa el objeto "news" al Bundle
+        args.putSerializable("news", news);
         navController.navigate(R.id.action_navigation_news_to_navigation_news_scrolling, args);
     }
 }

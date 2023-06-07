@@ -9,8 +9,6 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 o
 ?app/src/main/java/com/mfc/celiacare/ui/admin/AdminFragment.java,e\a\eae264a04084a6e2225250e89cfebcd75acd43d6
-j
-:app/src/main/java/com/mfc/celiacare/model/PlacesModel.java,9\0\90e9711da66a06caa9b1658d248eee51147fc70d
 r
 Bapp/src/main/java/com/mfc/celiacare/ui/login/RegisterActivity.java,0\b\0bd47898d6a5c8a71e10e196b4d13371a882ad7f
 9
@@ -19,12 +17,14 @@ o
 ?app/src/main/java/com/mfc/celiacare/ui/login/LoginFragment.java,5\f\5ff1ad3dc8ffeb2b6e8db28670af7d885c94fc89
 n
 >app/src/main/java/com/mfc/celiacare/ui/places/MapFragment.java,d\7\d7868ba9ea5be327194c374d27b7cc2a71a9809f
-c
-3app/src/main/java/com/mfc/celiacare/model/News.java,3\e\3e12c2914f107bf97530bd1068912c35de83fbf5
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 e
+5app/src/main/java/com/mfc/celiacare/MainActivity.java,2\e\2e69229ffd9d8dcaee6349731d6f23cfdea29906
+m
+=app/src/main/java/com/mfc/celiacare/adapters/NewsAdapter.java,3\7\370c481c49526bb797b92ceb5e9f30c63e3e0275
+c
+3app/src/main/java/com/mfc/celiacare/model/News.java,3\e\3e12c2914f107bf97530bd1068912c35de83fbf5
+e
 5app/src/main/java/com/mfc/celiacare/model/Places.java,c\6\c6db8c5f6009fd555c463d6fb30481f12f36ee60
-q
-Aapp/src/main/java/com/mfc/celiacare/ui/places/PlacesFragment.java,9\d\9d1cb3a2dd5d6239a048a5e25c81b6ad83bfb283
