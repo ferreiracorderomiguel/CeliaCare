@@ -28,7 +28,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    ArrayList<Places> placesData;
+    //ArrayList<Places> placesData;
     Button btnBack;
 
     public MapFragment() {
@@ -61,10 +61,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        placesData = new ArrayList<>();
+        /*placesData = new ArrayList<>();
 
         Places places = new Places("Pizzería Roberto", "Calle San Jacinto, 87", "Chipiona", "Pizzería con horno de leña", 1, "954 33 33 33");
-        placesData.add(places);
+        placesData.add(places);*/
     }
 
     @Override

@@ -37,6 +37,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         //holder.list_image.setImageResource(placesModelList.get(position).getImage());
         holder.newsTitleTextView.setText(newsAdapterList.get(position).getTitle());
         holder.descriptionTextView.setText(newsAdapterList.get(position).getDescription());
+        holder.lastUpdatedTextView.setText(newsAdapterList.get(position).getTimeSinceUpdated());
     }
 
     @Override
@@ -49,12 +50,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         private ImageView newsListImage;
         private TextView newsTitleTextView;
         private TextView descriptionTextView;
+        private TextView lastUpdatedTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             newsListImage = itemView.findViewById(R.id.list_image);
             newsTitleTextView = itemView.findViewById(R.id.newsTitleTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            lastUpdatedTextView = itemView.findViewById(R.id.lastUpdatedTextView);
         }
     }
 }

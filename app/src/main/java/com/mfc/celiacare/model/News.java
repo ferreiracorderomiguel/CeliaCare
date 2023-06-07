@@ -5,6 +5,7 @@ public class News {
     private String description;
     private String image;
     private String date;
+    private String timeSinceUpdated;
 
     public News() {
     }
@@ -14,6 +15,14 @@ public class News {
         this.description = description;
         this.image = image;
         this.date = date;
+    }
+
+    public News(String title, String description, String image, String date, String timeSinceUpdated) {
+        this.title = title;
+        this.description = description;
+        this.image = image;
+        this.date = date;
+        this.timeSinceUpdated = timeSinceUpdated;
     }
 
     public String getTitle() {
@@ -46,6 +55,14 @@ public class News {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTimeSinceUpdated() {
+        return timeSinceUpdated;
+    }
+
+    public void setTimeSinceUpdated(String timeSinceUpdated) {
+        this.timeSinceUpdated = timeSinceUpdated;
     }
 
     @Override

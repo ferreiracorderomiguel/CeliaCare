@@ -22,8 +22,14 @@ import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.NewsAdapter;
 import com.mfc.celiacare.model.News;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class NewsFragment extends Fragment {
 
@@ -67,10 +73,13 @@ public class NewsFragment extends Fragment {
                     String image = childSnapshot.child("image").getValue(String.class);
                     String date = childSnapshot.child("date").getValue(String.class);
 
-                    News news = new News(title, description, image, date);
+                    String timeSinceUpdated = getLastUpdatedTime(date);
+
+                    News news = new News(title, description, image, date, timeSinceUpdated);
                     newsList.add(news);
                 }
 
+                Collections.reverse(newsList);
                 newsAdapter.notifyDataSetChanged();
             }
 
@@ -81,17 +90,44 @@ public class NewsFragment extends Fragment {
         });
     }
 
+    private String getLastUpdatedTime(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+
+        try {
+            Date updatedDate = dateFormat.parse(date);
+            Date currentDate = new Date();
+
+            long differenceMillis = currentDate.getTime() - updatedDate.getTime();
+            long differenceMinutes = TimeUnit.MILLISECONDS.toMinutes(differenceMillis);
+
+            if (differenceMinutes < 60) {
+                return differenceMinutes + "m";
+            } else {
+                long differenceHours = TimeUnit.MINUTES.toHours(differenceMinutes);
+                if (differenceHours < 24) {
+                    return differenceHours + " H";
+                } else if (differenceHours < 24 * 30) {
+                    long differenceDays = differenceHours / 24;
+                    return differenceDays + " D";
+                } else if (differenceHours < 24 * 365) {
+                    long differenceMonths = differenceHours / (24 * 30);
+                    return differenceMonths + " M";
+                } else {
+                    long differenceYears = differenceHours / (24 * 365);
+                    return differenceYears + " A";
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
     private void initializeElements(View view) {
         recyclerNews = view.findViewById(R.id.recyclerViewNews);
         recyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerNews.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
-
-        /*newsList.add(new News("FACE lanza una encuesta para conocer la realidad social y sanitaria de las personas celiacas", "Desde FACE y las asociaciones miembros vamos a lanzar una encuesta como parte de un proyecto que pretende conocer la realidad social y sanitaria de las personas con enfermedad celiaca en España.", "Imagen", "06/06/2023"));
-        newsList.add(new News("Noticia 2", "Descripción", "Imagen", "06/06/2023"));
-        newsList.add(new News("Noticia 3", "Descripción", "Imagen", "06/06/2023"));
-        newsList.add(new News("Noticia 4", "Descripción", "Imagen", "06/06/2023"));
-        newsList.add(new News("Noticia 5", "Descripción", "Imagen", "06/06/2023"));
-        newsList.add(new News("Noticia 6", "Descripción", "Imagen", "06/06/2023"));*/
 
         newsAdapter = new NewsAdapter(newsList, getContext());
         recyclerNews.setAdapter(newsAdapter);

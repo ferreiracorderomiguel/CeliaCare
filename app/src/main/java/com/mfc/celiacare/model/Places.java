@@ -5,19 +5,21 @@ public class Places {
     private String streetAddress;
     private String city;
     private String description;
-    private Integer image;
+    private String image;
     private String phoneNumber;
+    private String date;
 
     public Places() {
     }
 
-    public Places(String placeName, String streetAddress, String city, String description, Integer image, String phoneNumber) {
+    public Places(String placeName, String streetAddress, String city, String description, String image, String phoneNumber, String date) {
         this.name = placeName;
         this.streetAddress = streetAddress;
         this.city = city;
         this.description = description;
         this.image = image;
         this.phoneNumber = phoneNumber;
+        this.date = date;
     }
 
     public String getName() {
@@ -52,11 +54,11 @@ public class Places {
         this.description = description;
     }
 
-    public Integer getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Integer image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -68,15 +70,24 @@ public class Places {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        return "PlacesModel{" +
+        return "Places{" +
                 "name='" + name + '\'' +
                 ", streetAddress='" + streetAddress + '\'' +
                 ", city='" + city + '\'' +
                 ", description='" + description + '\'' +
-                ", image=" + image +
+                ", image='" + image + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", date='" + date + '\'' +
                 '}';
     }
 }

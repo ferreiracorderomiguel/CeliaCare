@@ -26,8 +26,14 @@ import com.mfc.celiacare.adapters.PlacesAdapter;
 import com.mfc.celiacare.model.News;
 import com.mfc.celiacare.model.Places;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class PlacesFragment extends Fragment {
 
@@ -55,11 +61,6 @@ public class PlacesFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance("https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app");
         databaseReference = firebaseDatabase.getReference("places");
     }
-
-    /*@Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }*/
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -91,14 +92,18 @@ public class PlacesFragment extends Fragment {
 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     String name = childSnapshot.child("name").getValue(String.class);
+                    String streetAddress = childSnapshot.child("streetAddress").getValue(String.class);
+                    String city = childSnapshot.child("city").getValue(String.class);
                     String description = childSnapshot.child("description").getValue(String.class);
                     String image = childSnapshot.child("image").getValue(String.class);
+                    String phoneNumber = childSnapshot.child("phoneNumber").getValue(String.class);
                     String date = childSnapshot.child("date").getValue(String.class);
 
-                    Places place = new Places(name, "Calle", "Ciudad", description, 1, date);
+                    Places place = new Places(name, streetAddress, city, description, image, phoneNumber, date);
                     placesList.add(place);
                 }
 
+                Collections.reverse(placesList);
                 placesAdapter.notifyDataSetChanged();
             }
 
@@ -109,20 +114,14 @@ public class PlacesFragment extends Fragment {
         });
     }
 
+
+
+
+
     private void initializeElements(View view) {
         recyclerPlaces = view.findViewById(R.id.recyclerViewPlaces);
         recyclerPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerPlaces.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
-
-        /*placesList.add(new Places("Bulevar Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten.", 1, "955971224"));
-        placesList.add(new Places("Restaurante Jábega, arrocería & marisquería", "Avenida Kansas City, 92. 41007 Sevilla.", "Nervión, Sevilla", "A finales de este mes termina su protocolo de adhesión el restaurante Jábega, una arrocería valenciana con una cocina que combina lo moderno con lo clásico.\n" +
-                "\n" +
-                "Además de sus arroces podéis disfruta de un gran surtido de marisco además de unas riquísimas tapas.", 1, "955971224"));
-        placesList.add(new Places("Grosso Napoletano", "Calle Alameda de Hércules, 46. 41002, Sevilla.", "AdH, Sevilla", "Un horno de leña, un fuego encendido y todos nuestros productos sin gluten, para poder disfrutar de la auténtica pizza napolitana 100% gluten free en Alameda de Hércules 46. La misma esencia de siempre para que todo el mundo se siente a la mesa, menos el gluten. Si somos la 3ª mejor cadena de pizzerías del mundo y la primera de España, no deberías perdértela. ", 1, "955971224"));
-        placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));
-        placesList.add(new Places("La gamba Pizza", "Océano Atlántico S/N", "Lebrija", "Sólo tienen pizzas sin gluten", 1, "955971224"));*/
 
         placesAdapter = new PlacesAdapter(placesList, getContext());
 

@@ -44,8 +44,22 @@
         android:layout_marginTop="1dp"
         android:layout_toRightOf="@+id/list_image_layout"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="2"
         android:text="@string/newsDescription"
         android:textColor="#5E5E5E"
         android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/lastUpdatedTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descriptionTextView"
+        android:layout_marginTop="1dp"
+        android:layout_toRightOf="@+id/list_image_layout"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/newsDescription"
+        android:textAlignment="viewEnd"
+        android:textColor="#8A8A8A"
+        android:textSize="11dp" />
 </RelativeLayout>
