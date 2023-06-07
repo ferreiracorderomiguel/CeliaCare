@@ -5,6 +5,7 @@
     android:gravity="center"
     android:listSelector="#BFBFBF"
     android:orientation="horizontal"
+    android:foreground="?android:attr/selectableItemBackground"
     android:padding="5dip">
 
     <LinearLayout
