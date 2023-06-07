@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.News;
+import com.mfc.celiacare.ui.news.NewsFragment;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     private List<News> newsAdapterList;
     private Context context;
+    private NewsFragment newsFragment;
 
     public NewsAdapter(List<News> newsAdapterList, Context context) {
         this.newsAdapterList = newsAdapterList;
@@ -43,7 +45,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Clicked on "+ position + newsAdapterList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                newsFragment.openNewsDetails(newsAdapterList.get(position));
             }
         });
     }
@@ -67,5 +69,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             lastUpdatedTextView = itemView.findViewById(R.id.lastUpdatedTextView);
         }
+    }
+
+    public void setNewsFragment(NewsFragment newsFragment) {
+        this.newsFragment = newsFragment;
     }
 }
