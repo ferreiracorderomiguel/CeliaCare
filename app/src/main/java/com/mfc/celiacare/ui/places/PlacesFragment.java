@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,6 +45,7 @@ public class PlacesFragment extends Fragment {
     List<Places> placesList = new ArrayList<>();
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    SwipeRefreshLayout swipeNews;
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
 
     public PlacesFragment() {
@@ -128,9 +130,10 @@ public class PlacesFragment extends Fragment {
 
     public void openPlaceDetails(Places places) {
         NavController navAccount = Navigation.findNavController(getView());
+        Bundle args = new Bundle();
+        args.putSerializable("places", places);
         navAccount.navigate(R.id.action_navigation_places_to_navigation_places_scrolling);
     }
-
 
     private void changeView(String view) {
         if (view.equals("map")) {

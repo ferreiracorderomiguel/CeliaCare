@@ -1,6 +1,8 @@
 package com.mfc.celiacare.model;
 
-public class Places {
+import java.io.Serializable;
+
+public class Places implements Serializable {
     private String name;
     private String streetAddress;
     private String city;
