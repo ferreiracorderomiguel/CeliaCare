@@ -17,9 +17,7 @@ import com.mfc.celiacare.model.Places;
 
 public class PlacesScrollingFragment extends Fragment {
 
-    public PlacesScrollingFragment() {
-
-    }
+    public PlacesScrollingFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +36,5 @@ public class PlacesScrollingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Places places = (Places) getArguments().getSerializable("places");
-        Log.d("PlacesScrollingFragment", "onViewCreated: " + places.getName());
     }
 }

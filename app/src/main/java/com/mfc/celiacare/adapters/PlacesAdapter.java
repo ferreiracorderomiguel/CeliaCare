@@ -2,11 +2,11 @@ package com.mfc.celiacare.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +17,6 @@ import com.mfc.celiacare.ui.places.PlacesFragment;
 import java.util.List;
 
 public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder>{
-    // https://www.youtube.com/watch?v=-fiZaeNynFk
 
     private List<Places> placesList;
     private Context context;
