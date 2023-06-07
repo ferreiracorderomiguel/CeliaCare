@@ -1,6 +1,8 @@
 package com.mfc.celiacare.model;
 
-public class News {
+import java.io.Serializable;
+
+public class News implements Serializable {
     private String title;
     private String description;
     private String image;

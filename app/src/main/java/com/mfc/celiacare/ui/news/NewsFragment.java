@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -130,6 +132,15 @@ public class NewsFragment extends Fragment {
         recyclerNews.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
         newsAdapter = new NewsAdapter(newsList, getContext());
+        newsAdapter.setNewsFragment(this);
+
         recyclerNews.setAdapter(newsAdapter);
+    }
+
+    public void openNewsDetails(News news) {
+        NavController navController = Navigation.findNavController(requireView());
+        Bundle args = new Bundle();
+        args.putSerializable("news", news); // Pasa el objeto "news" al Bundle
+        navController.navigate(R.id.action_navigation_news_to_navigation_news_scrolling, args);
     }
 }

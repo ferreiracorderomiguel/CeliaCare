@@ -45,7 +45,6 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Clicked on "+ position + " " + placesList.get(position).getName(), Toast.LENGTH_SHORT).show();
                 placesFragment.openPlaceDetails(placesList.get(position));
             }
         });
@@ -75,5 +74,4 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     public void setPlacesFragment(PlacesFragment placesFragment) {
         this.placesFragment = placesFragment;
     }
-
 }
