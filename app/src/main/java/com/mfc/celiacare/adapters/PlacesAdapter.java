@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.Places;
+import com.mfc.celiacare.ui.places.PlacesFragment;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
     private List<Places> placesList;
     private Context context;
+    private PlacesFragment placesFragment;
 
     public PlacesAdapter(List<Places> placesList, Context context) {
         this.placesList = placesList;
@@ -44,6 +46,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Clicked on "+ position + " " + placesList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                placesFragment.openPlaceDetails(placesList.get(position));
             }
         });
     }
@@ -67,6 +70,10 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
             cityTextView = itemView.findViewById(R.id.cityTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
         }
+    }
+
+    public void setPlacesFragment(PlacesFragment placesFragment) {
+        this.placesFragment = placesFragment;
     }
 
 }

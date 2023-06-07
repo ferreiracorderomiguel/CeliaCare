@@ -55,4 +55,6 @@
     <string name="newsTitle">Title of the news</string>
     <string name="newsDescription">Description of the news</string>
     <string name="descriptionTitle">Description of the place</string>
+    <string name="news_scrolling">News detail</string>
+    <string name="places_scrolling">Place detail</string>
 </resources>

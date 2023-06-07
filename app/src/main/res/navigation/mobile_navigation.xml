@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_places"
-            app:destination="@id/navigation_dashboard" />
+            app:destination="@id/navigation_places" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_notifications"
-            app:destination="@id/navigation_notifications" />
+            app:destination="@id/navigation_news" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_community"
             app:destination="@id/navigation_community" />
@@ -25,13 +25,16 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_places"
         android:name="com.mfc.celiacare.ui.places.PlacesFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_places" >
         <action
-            android:id="@+id/action_navigation_dashboard_to_navigation_map"
+            android:id="@+id/action_navigation_places_to_navigation_map"
             app:destination="@id/navigation_map" />
+        <action
+            android:id="@+id/action_navigation_places_to_navigation_places_scrolling"
+            app:destination="@id/navigation_places_scrolling" />
     </fragment>
 
     <fragment
@@ -41,10 +44,14 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_news"
         android:name="com.mfc.celiacare.ui.news.NewsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_navigation_news_to_navigation_news_scrolling"
+            app:destination="@id/navigation_news_scrolling" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_login"
@@ -76,4 +83,19 @@
         android:id="@+id/action_navigation_account_to_navigation_login"
         app:destination="@id/navigation_login" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_places_scrolling"
+        android:name="com.mfc.celiacare.ui.places.PlacesScrollingFragment"
+        android:label="@string/places_scrolling"
+        tools:layout="@layout/fragment_places_scrolling">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_news_scrolling"
+        android:name="com.mfc.celiacare.ui.news.NewsScrollingFragment"
+        android:label="@string/news_scrolling"
+        tools:layout="@layout/fragment_news_scrolling">
+    </fragment>
+
 </navigation>

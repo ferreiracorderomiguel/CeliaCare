@@ -43,7 +43,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Clicked on "+ position + " " + newsAdapterList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Clicked on "+ position + newsAdapterList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
     }
