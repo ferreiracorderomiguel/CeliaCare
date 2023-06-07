@@ -56,12 +56,9 @@ public class NewsFragment extends Fragment {
     }
 
     private void getNewsFromFirebase() {
-        Log.d("NOTICIAS: ", "getNewsFromFirebase");
-
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("NOTICIAS: ", "onDataChange");
                 newsList.clear();
 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
@@ -83,8 +80,6 @@ public class NewsFragment extends Fragment {
             }
         });
     }
-
-
 
     private void initializeElements(View view) {
         recyclerNews = view.findViewById(R.id.recyclerViewNews);
