@@ -44,6 +44,7 @@ public class PlacesFragment extends Fragment {
     List<Places> placesList = new ArrayList<>();
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
 
     public PlacesFragment() {
     }
@@ -58,7 +59,7 @@ public class PlacesFragment extends Fragment {
     }
 
     private void initializeFirebase() {
-        firebaseDatabase = FirebaseDatabase.getInstance("https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app");
+        firebaseDatabase = FirebaseDatabase.getInstance(URL);
         databaseReference = firebaseDatabase.getReference("places");
     }
 
@@ -120,17 +121,26 @@ public class PlacesFragment extends Fragment {
         recyclerPlaces.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
         placesAdapter = new PlacesAdapter(placesList, getContext());
+        placesAdapter.setPlacesFragment(this);
 
         recyclerPlaces.setAdapter(placesAdapter);
     }
 
+    public void openPlaceDetails(Places places) {
+        NavController navAccount = Navigation.findNavController(getView());
+        navAccount.navigate(R.id.action_navigation_places_to_navigation_places_scrolling);
+    }
+
+
     private void changeView(String view) {
         if (view.equals("map")) {
             NavController navAccount = Navigation.findNavController(getView());
-            navAccount.navigate(R.id.action_navigation_dashboard_to_navigation_map);
+            navAccount.navigate(R.id.action_navigation_places_to_navigation_map);
         } else if (view.equals("myPlaces")) {
             NavController navAccount = Navigation.findNavController(getView());
-            navAccount.navigate(R.id.action_navigation_dashboard_to_navigation_map);
+            navAccount.navigate(R.id.action_navigation_places_to_navigation_map);
         }
     }
+
+
 }
