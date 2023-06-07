@@ -43,7 +43,7 @@ public class NewsFragment extends Fragment {
     }
 
     private void initializeFirebase() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance("https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app");
         databaseReference = firebaseDatabase.getReference("news");
     }
 
@@ -91,12 +91,12 @@ public class NewsFragment extends Fragment {
         recyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerNews.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
-        newsList.add(new News("FACE lanza una encuesta para conocer la realidad social y sanitaria de las personas celiacas", "Desde FACE y las asociaciones miembros vamos a lanzar una encuesta como parte de un proyecto que pretende conocer la realidad social y sanitaria de las personas con enfermedad celiaca en España.", "Imagen", "06/06/2023"));
+        /*newsList.add(new News("FACE lanza una encuesta para conocer la realidad social y sanitaria de las personas celiacas", "Desde FACE y las asociaciones miembros vamos a lanzar una encuesta como parte de un proyecto que pretende conocer la realidad social y sanitaria de las personas con enfermedad celiaca en España.", "Imagen", "06/06/2023"));
         newsList.add(new News("Noticia 2", "Descripción", "Imagen", "06/06/2023"));
         newsList.add(new News("Noticia 3", "Descripción", "Imagen", "06/06/2023"));
         newsList.add(new News("Noticia 4", "Descripción", "Imagen", "06/06/2023"));
         newsList.add(new News("Noticia 5", "Descripción", "Imagen", "06/06/2023"));
-        newsList.add(new News("Noticia 6", "Descripción", "Imagen", "06/06/2023"));
+        newsList.add(new News("Noticia 6", "Descripción", "Imagen", "06/06/2023"));*/
 
         newsAdapter = new NewsAdapter(newsList, getContext());
         recyclerNews.setAdapter(newsAdapter);
