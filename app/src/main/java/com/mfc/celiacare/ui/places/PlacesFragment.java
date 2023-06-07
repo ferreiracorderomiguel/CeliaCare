@@ -114,10 +114,6 @@ public class PlacesFragment extends Fragment {
         });
     }
 
-
-
-
-
     private void initializeElements(View view) {
         recyclerPlaces = view.findViewById(R.id.recyclerViewPlaces);
         recyclerPlaces.setLayoutManager(new LinearLayoutManager(getContext()));

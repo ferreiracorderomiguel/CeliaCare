@@ -26,7 +26,5 @@ c
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 e
 5app/src/main/java/com/mfc/celiacare/model/Places.java,c\6\c6db8c5f6009fd555c463d6fb30481f12f36ee60
-m
-=app/src/main/java/com/mfc/celiacare/ui/news/NewsFragment.java,c\4\c458a366c40e651c47cc048ea517214d4af80e1b
 q
 Aapp/src/main/java/com/mfc/celiacare/ui/places/PlacesFragment.java,9\d\9d1cb3a2dd5d6239a048a5e25c81b6ad83bfb283

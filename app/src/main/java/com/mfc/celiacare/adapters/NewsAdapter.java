@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,24 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.newsTitleTextView.setText(newsAdapterList.get(position).getTitle());
         holder.descriptionTextView.setText(newsAdapterList.get(position).getDescription());
         holder.lastUpdatedTextView.setText(newsAdapterList.get(position).getTimeSinceUpdated());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Manejar el clic en el elemento de la lista
+                // Navegar a otro fragmento y pasar datos si es necesario
+                /*Fragment fragment = new DetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("news", news);
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();*/
+                Toast.makeText(context, "Clicked on " + newsAdapterList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
