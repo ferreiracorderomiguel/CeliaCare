@@ -43,6 +43,10 @@ public class NewsScrollingFragment extends Fragment {
         /*CollapsingToolbarLayout collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarNews);
         collapsingToolbarLayout.setTitle(news.getTitle());*/
 
+        initializeToolbar(view, news);
+    }
+
+    private void initializeToolbar(View view, News news) {
         TextView textViewTitle = view.findViewById(R.id.textViewTitle);
         textViewTitle.setText(news.getTitle());
         TextView textView = view.findViewById(R.id.textViewNews);
