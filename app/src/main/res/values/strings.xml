@@ -57,4 +57,7 @@
     <string name="descriptionTitle">Description of the place</string>
     <string name="news_scrolling">News detail</string>
     <string name="places_scrolling">Place detail</string>
+    <string name="news_scrolling_title">News title</string>
+    <string name="news_title_test">New Study Reveals Promising Strategies for Managing Celiac Disease</string>
+    <string name="news_description_test">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id justo velit. Donec et facilisis sapien. Nulla facilisi. Vestibulum eget massa eget odio dignissim tristique. Vestibulum in magna et neque condimentum viverra. Fusce facilisis enim non tortor tincidunt, vitae aliquet quam congue. Nam viverra ligula vel nisi tristique, a ultrices velit aliquet. Morbi faucibus ex id sapien pellentesque, vel varius libero dictum. Mauris id volutpat sapien, at tristique elit. Sed ut luctus nibh. Cras eget sapien hendrerit, feugiat sapien eu, dictum turpis. Sed gravida nisl vel lacus congue sollicitudin. Curabitur a pulvinar ante, sed efficitur nulla.\n\nVivamus sed dui vitae mauris congue tincidunt. Nam euismod mauris sit amet tellus pellentesque eleifend. Fusce feugiat metus sed risus aliquet tristique. Duis sagittis, purus eu feugiat varius, lectus lacus vestibulum sem, at aliquam libero dui vitae massa. Maecenas sit amet tellus eu ex aliquet congue nec sit amet tortor.</string>
 </resources>

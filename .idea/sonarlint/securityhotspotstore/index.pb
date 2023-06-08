@@ -20,3 +20,17 @@ n
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 e
 5app/src/main/java/com/mfc/celiacare/MainActivity.java,2\e\2e69229ffd9d8dcaee6349731d6f23cfdea29906
+e
+5app/src/main/java/com/mfc/celiacare/model/Places.java,c\6\c6db8c5f6009fd555c463d6fb30481f12f36ee60
+m
+=app/src/main/java/com/mfc/celiacare/adapters/NewsAdapter.java,3\7\370c481c49526bb797b92ceb5e9f30c63e3e0275
+o
+?app/src/main/java/com/mfc/celiacare/adapters/PlacesAdapter.java,9\6\96b7c35c97cbec56aa5078fe8cd82ad005015542
+q
+Aapp/src/main/java/com/mfc/celiacare/ui/places/PlacesFragment.java,9\d\9d1cb3a2dd5d6239a048a5e25c81b6ad83bfb283
+z
+Japp/src/main/java/com/mfc/celiacare/ui/places/PlacesScrollingFragment.java,2\0\205316327b1c54f78a8fe75440e56ad2d7812dd5
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+?
+settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233

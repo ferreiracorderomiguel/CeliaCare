@@ -76,10 +76,11 @@ public class NewsFragment extends Fragment {
                     String description = childSnapshot.child("description").getValue(String.class);
                     String image = childSnapshot.child("image").getValue(String.class);
                     String date = childSnapshot.child("date").getValue(String.class);
-
+                    String source = childSnapshot.child("source").getValue(String.class);
+                    
                     String timeSinceUpdated = getLastUpdatedTime(date);
 
-                    News news = new News(title, description, image, date, timeSinceUpdated);
+                    News news = new News(title, description, image, date, source, timeSinceUpdated);
                     newsList.add(news);
                 }
 

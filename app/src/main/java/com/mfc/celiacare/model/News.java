@@ -8,23 +8,26 @@ public class News implements Serializable {
     private String image;
     private String date;
     private String timeSinceUpdated;
+    private String source;
 
     public News() {
     }
 
-    public News(String title, String description, String image, String date) {
+    public News(String title, String description, String image, String date, String source) {
         this.title = title;
         this.description = description;
         this.image = image;
         this.date = date;
+        this.source = source;
     }
 
-    public News(String title, String description, String image, String date, String timeSinceUpdated) {
+    public News(String title, String description, String image, String date, String source, String timeSinceUpdated) {
         this.title = title;
         this.description = description;
         this.image = image;
         this.date = date;
         this.timeSinceUpdated = timeSinceUpdated;
+        this.source = source;
     }
 
     public String getTitle() {
@@ -67,6 +70,14 @@ public class News implements Serializable {
         this.timeSinceUpdated = timeSinceUpdated;
     }
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     @Override
     public String toString() {
         return "NewsModel{" +
@@ -74,6 +85,7 @@ public class News implements Serializable {
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
                 ", date='" + date + '\'' +
+                ", source='" + source + '\'' +
                 '}';
     }
 }
