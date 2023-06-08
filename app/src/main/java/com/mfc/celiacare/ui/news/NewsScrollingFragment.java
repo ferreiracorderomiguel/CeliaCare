@@ -40,13 +40,14 @@ public class NewsScrollingFragment extends Fragment {
 
         News news = (News) getArguments().getSerializable("news");
 
-        /*CollapsingToolbarLayout collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarNews);
-        collapsingToolbarLayout.setTitle(news.getTitle());*/
-
-        initializeToolbar(view, news);
+        initializeElements(view, news);
     }
 
-    private void initializeToolbar(View view, News news) {
+    private void initializeElements(View view, News news) {
+        initializeTextViews(view, news);
+    }
+
+    private void initializeTextViews(View view, News news) {
         TextView textViewTitle = view.findViewById(R.id.textViewTitle);
         textViewTitle.setText(news.getTitle());
         TextView textView = view.findViewById(R.id.textViewNews);

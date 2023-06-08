@@ -101,8 +101,9 @@ public class PlacesFragment extends Fragment {
                     String image = childSnapshot.child("image").getValue(String.class);
                     String phoneNumber = childSnapshot.child("phoneNumber").getValue(String.class);
                     String date = childSnapshot.child("date").getValue(String.class);
+                    String coordinates = childSnapshot.child("coordinates").getValue(String.class);
 
-                    Places place = new Places(name, streetAddress, city, description, image, phoneNumber, date);
+                    Places place = new Places(name, streetAddress, city, description, image, phoneNumber, date, coordinates);
                     placesList.add(place);
                 }
 

@@ -10,11 +10,12 @@ public class Places implements Serializable {
     private String image;
     private String phoneNumber;
     private String date;
+    private String coordinates;
 
     public Places() {
     }
 
-    public Places(String placeName, String streetAddress, String city, String description, String image, String phoneNumber, String date) {
+    public Places(String placeName, String streetAddress, String city, String description, String image, String phoneNumber, String date, String coordinates) {
         this.name = placeName;
         this.streetAddress = streetAddress;
         this.city = city;
@@ -22,6 +23,7 @@ public class Places implements Serializable {
         this.image = image;
         this.phoneNumber = phoneNumber;
         this.date = date;
+        this.coordinates = coordinates;
     }
 
     public String getName() {
@@ -80,6 +82,14 @@ public class Places implements Serializable {
         this.date = date;
     }
 
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
+    }
+
     @Override
     public String toString() {
         return "Places{" +
@@ -90,6 +100,7 @@ public class Places implements Serializable {
                 ", image='" + image + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", date='" + date + '\'' +
+                ", coordinates='" + coordinates + '\'' +
                 '}';
     }
 }

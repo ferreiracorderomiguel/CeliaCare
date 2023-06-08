@@ -75,7 +75,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions()
                 .position(pisoSev)
                 .title("Piso Sevilla")
-                // Le doy color verde al marcador
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pdv, 15));
     }
