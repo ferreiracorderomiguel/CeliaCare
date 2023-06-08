@@ -6,11 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.News;
 
@@ -36,6 +39,17 @@ public class NewsScrollingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         News news = (News) getArguments().getSerializable("news");
-        Log.d("NewsScrollingFragment", "onViewCreated: " + news.getTitle());
+
+        /*CollapsingToolbarLayout collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbarNews);
+        collapsingToolbarLayout.setTitle(news.getTitle());*/
+
+        TextView textViewTitle = view.findViewById(R.id.textViewTitle);
+        textViewTitle.setText(news.getTitle());
+        TextView textView = view.findViewById(R.id.textViewNews);
+        textView.setText(news.getDescription());
+        TextView textViewDate = view.findViewById(R.id.textViewDate);
+        textViewDate.setText(news.getDate());
+        TextView textViewSource = view.findViewById(R.id.textViewSource);
+        textViewSource.setText(news.getSource());
     }
 }
