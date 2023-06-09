@@ -50,4 +50,10 @@
     <string name="close_map">Cerrar mapa</string>
     <string name="newsTitle">Título de la noticia</string>
     <string name="newsDescription">Descripción de la noticia</string>
+    <string name="descriptionTitle">Descripción del establecimiento</string>
+    <string name="news_scrolling">Noticia</string>
+    <string name="places_scrolling">Establecimiento</string>
+    <string name="news_scrolling_title">Título de la noticia</string>
+    <string name="places_scrolling_title">Establecimientos</string>
+    <string name="your_location">Mi ubicación</string>
 </resources>
