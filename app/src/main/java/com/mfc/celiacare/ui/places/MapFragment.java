@@ -1,10 +1,18 @@
 package com.mfc.celiacare.ui.places;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,8 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -23,7 +31,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.Places;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +41,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     List<Places> placesList;
     private Double latitude;
     private Double longitude;
+    private boolean hasExactLocation = false;
+    double myLatitude;
+    double myLongitude;
 
     public MapFragment() {
 
@@ -58,6 +68,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        checkLocationPermission();
         super.onCreate(savedInstanceState);
     }
 
@@ -74,10 +85,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
 
         placesList = getArguments().getParcelableArrayList("places");
-
-
     }
-
 
     public void splitCoordinates(String coordinates) {
         String[] parts = coordinates.split(",");
@@ -99,6 +107,59 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             .title(place.getName())
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                 }
+            }
+        }
+        if (hasExactLocation){
+            pointToExactLocation();
+        }
+    }
+
+    private void pointToExactLocation() {
+        getExactCoordinates();
+        LatLng myLocation = new LatLng(36.9171211, -6.0621644);
+        mMap.addMarker(new MarkerOptions()
+                .position(myLocation)
+                .title(getString(R.string.your_location))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+    }
+
+    private void getExactCoordinates() {
+        LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
+
+        if (locationManager != null) {
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                Location lastKnownLocation = null;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+
+                if (lastKnownLocation == null) {
+                    lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                }
+
+                if (lastKnownLocation != null) {
+                    myLatitude = lastKnownLocation.getLatitude();
+                    myLongitude = lastKnownLocation.getLongitude();
+                } else {
+                    Toast.makeText(requireContext(), "No se pudo obtener la ubicación exacta", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private void checkLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
+        } else {
+            LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                hasExactLocation = true;
+            } else {
+                hasExactLocation = false;
             }
         }
     }
