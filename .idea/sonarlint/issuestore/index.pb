@@ -13,13 +13,9 @@ r
 Bapp/src/main/java/com/mfc/celiacare/ui/login/RegisterActivity.java,0\b\0bd47898d6a5c8a71e10e196b4d13371a882ad7f
 o
 ?app/src/main/java/com/mfc/celiacare/ui/login/LoginFragment.java,5\f\5ff1ad3dc8ffeb2b6e8db28670af7d885c94fc89
-n
->app/src/main/java/com/mfc/celiacare/ui/places/MapFragment.java,d\7\d7868ba9ea5be327194c374d27b7cc2a71a9809f
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-e
-5app/src/main/java/com/mfc/celiacare/MainActivity.java,2\e\2e69229ffd9d8dcaee6349731d6f23cfdea29906
 m
 =app/src/main/java/com/mfc/celiacare/adapters/NewsAdapter.java,3\7\370c481c49526bb797b92ceb5e9f30c63e3e0275
 o

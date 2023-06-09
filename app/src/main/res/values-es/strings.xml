@@ -56,4 +56,6 @@
     <string name="news_scrolling_title">Título de la noticia</string>
     <string name="places_scrolling_title">Establecimientos</string>
     <string name="your_location">Mi ubicación</string>
+    <string name="place_save_message_1">Establecimiento</string>
+    <string name="place_save_message_2">guardado en su perfil</string>
 </resources>
