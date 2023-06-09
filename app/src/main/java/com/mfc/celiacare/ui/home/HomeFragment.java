@@ -62,14 +62,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        linearLayoutCommunity = view.findViewById(R.id.linearLayoutCommunity);
-        linearLayoutCommunity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeView("community");
-            }
-        });
-
         linearLayoutAccount = view.findViewById(R.id.linearLayoutAccount);
         linearLayoutAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,10 +80,6 @@ public class HomeFragment extends Fragment {
             case "notifications":
                 NavController navNotifications = Navigation.findNavController(getView());
                 navNotifications.navigate(R.id.action_navigation_home_to_navigation_notifications);
-                break;
-            case "community":
-                NavController navCommunity = Navigation.findNavController(getView());
-                navCommunity.navigate(R.id.action_navigation_home_to_navigation_community);
                 break;
             case "account":
                 NavController navAccount = Navigation.findNavController(getView());

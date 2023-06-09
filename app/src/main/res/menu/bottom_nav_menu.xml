@@ -17,11 +17,6 @@
         android:title="@string/title_news" />
 
     <item
-        android:id="@+id/navigation_community"
-        android:icon="@drawable/comunidad"
-        android:title="@string/title_community" />
-
-    <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/icons8_usuario_masculino_en_c_rculo_100"
         android:title="@string/title_login" />

@@ -1,8 +1,13 @@
 package com.mfc.celiacare.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
-public class Places implements Serializable {
+public class Places implements Serializable, Parcelable {
     private String name;
     private String streetAddress;
     private String city;
@@ -102,5 +107,15 @@ public class Places implements Serializable {
                 ", date='" + date + '\'' +
                 ", coordinates='" + coordinates + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+
     }
 }

@@ -25,10 +25,10 @@ import com.mfc.celiacare.model.Places;
 
 public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallback {
 
-    Double latitude;
-    Double longitude;
+    private Double latitude;
+    private Double longitude;
     private GoogleMap mMap;
-    Places place;
+    private Places place;
 
     public PlacesScrollingFragment() {}
 
