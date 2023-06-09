@@ -137,17 +137,19 @@ public class PlacesFragment extends Fragment {
         });
     }
 
-    public void openPlaceDetails(Places places) {
+    public void openPlaceDetails(Places place) {
         NavController navAccount = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
-        args.putSerializable("places", places);
+        args.putSerializable("places", place);
         navAccount.navigate(R.id.action_navigation_places_to_navigation_places_scrolling, args);
     }
 
     private void changeView(String view) {
         if (view.equals("map")) {
             NavController navAccount = Navigation.findNavController(getView());
-            navAccount.navigate(R.id.action_navigation_places_to_navigation_map);
+            Bundle args = new Bundle();
+            args.putParcelableArrayList("places", new ArrayList<>(placesList));
+            navAccount.navigate(R.id.action_navigation_places_to_navigation_map, args);
         } else if (view.equals("myPlaces")) {
             NavController navAccount = Navigation.findNavController(getView());
             navAccount.navigate(R.id.action_navigation_places_to_navigation_map);

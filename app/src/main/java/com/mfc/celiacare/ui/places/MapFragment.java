@@ -1,11 +1,13 @@
 package com.mfc.celiacare.ui.places;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +24,16 @@ import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.Places;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
+    private Button btnBack;
     private GoogleMap mMap;
-
-    //ArrayList<Places> placesData;
-    Button btnBack;
+    List<Places> placesList;
+    private Double latitude;
+    private Double longitude;
 
     public MapFragment() {
 
@@ -40,9 +44,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        initializeMap();
 
         return view;
     }
@@ -51,10 +53,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnBack = view.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> {
-            getActivity().onBackPressed();
-        });
+        initializeElements(view);
     }
 
     @Override
@@ -62,20 +61,45 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
     }
 
+    private void initializeMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.mapPlaces);
+        mapFragment.getMapAsync(this);
+    }
+
+    private void initializeElements(View view) {
+        btnBack = view.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
+
+        placesList = getArguments().getParcelableArrayList("places");
+
+
+    }
+
+
+    public void splitCoordinates(String coordinates) {
+        String[] parts = coordinates.split(",");
+        latitude = Double.valueOf(parts[0].trim());
+        longitude = Double.valueOf(parts[1].trim());
+    }
+
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng pdv = new LatLng(37.3553, -5.9891);
-        mMap.addMarker(new MarkerOptions()
-                .position(pdv)
-                .title("Punta del Verde"));
-
-        LatLng pisoSev = new LatLng(37.3648, -5.9882);
-        mMap.addMarker(new MarkerOptions()
-                .position(pisoSev)
-                .title("Piso Sevilla")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pdv, 15));
+        if (placesList != null) {
+            if (mMap != null) {
+                for (Places place : placesList) {
+                    splitCoordinates(place.getCoordinates());
+                    LatLng latLng = new LatLng(latitude, longitude);
+                    mMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .title(place.getName())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                }
+            }
+        }
     }
 }
