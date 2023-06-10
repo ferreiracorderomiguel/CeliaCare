@@ -58,4 +58,11 @@
     <string name="your_location">Mi ubicación</string>
     <string name="place_save_message_1">Establecimiento</string>
     <string name="place_save_message_2">guardado en su perfil</string>
+    <string name="places_my_places">Mis establecimientos favoritos</string>
+    <string name="button_confirm">Vale</string>
+    <string name="notLoguedTitle">¡Oye! No has iniciado sesión</string>
+    <string name="notLoguedMessage">Para acceder a tus lugares favoritos, primero tienes que inicar sesión.</string>
+    <string name="remove_favplace_title">Borrar establecimiento de favoritos</string>
+    <string name="remove_favplace_message">¿Estás seguro que quieres borrar</string>
+    <string name="remove_favplace_message2">de tus favoritos?</string>
 </resources>

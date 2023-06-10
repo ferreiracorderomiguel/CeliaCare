@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,23 +53,29 @@ public class PlacesFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     SwipeRefreshLayout swipePlaces;
+    FirebaseAuth auth;
+    FirebaseUser currentUser;
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
 
-    public PlacesFragment() {
-    }
+    public PlacesFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_places, container, false);
 
-        initializeFirebase();
+        initializeFirebase(1);
         return view;
     }
 
-    private void initializeFirebase() {
-        firebaseDatabase = FirebaseDatabase.getInstance(URL);
-        databaseReference = firebaseDatabase.getReference("places");
+    private void initializeFirebase(int opc) {
+        if (opc == 1) {
+            firebaseDatabase = FirebaseDatabase.getInstance(URL);
+            databaseReference = firebaseDatabase.getReference("places");
+        } else if (opc == 2) {
+            auth = FirebaseAuth.getInstance();
+            currentUser = auth.getCurrentUser();
+        }
     }
 
     @Override
@@ -156,8 +164,23 @@ public class PlacesFragment extends Fragment {
             args.putParcelableArrayList("places", new ArrayList<>(placesList));
             navAccount.navigate(R.id.action_navigation_places_to_navigation_map, args);
         } else if (view.equals("myPlaces")) {
+            openMyPlaces();
+        }
+    }
+
+    private void openMyPlaces() {
+        initializeFirebase(2);
+        if (currentUser != null) {
             NavController navAccount = Navigation.findNavController(getView());
-            navAccount.navigate(R.id.action_navigation_places_to_navigation_map);
+            navAccount.navigate(R.id.action_navigation_places_to_navigation_my_places);
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(getString(R.string.notLoguedTitle));
+            builder.setMessage(getString(R.string.notLoguedMessage));
+            builder.setPositiveButton(getString(R.string.button_confirm), null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 }

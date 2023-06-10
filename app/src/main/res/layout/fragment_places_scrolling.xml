@@ -59,7 +59,7 @@
                 android:textSize="19dp"
                 android:text="@string/news_title_test"
                 android:textStyle="bold"
-                android:paddingTop="10dp"
+                android:paddingTop="18dp"
                 android:gravity="fill_horizontal"
                 android:layout_marginBottom="5dp"/>
 
