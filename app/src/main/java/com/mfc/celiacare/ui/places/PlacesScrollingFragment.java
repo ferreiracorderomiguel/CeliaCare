@@ -87,13 +87,10 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
             @Override
             public void onClick(View view) {
                 if (currentUser != null) {
-                    // Usuario logueado, ejecuta el método savePlaceOnUserProfile()
                     savePlaceOnUserProfile(place);
                 } else {
-                    // Usuario no logueado, muestra un mensaje de error o redirige al usuario a la pantalla de inicio de sesión
                     Toast.makeText(getContext(), "You need to be logged in to save a place", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }

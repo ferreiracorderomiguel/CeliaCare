@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_navigation_places_to_navigation_places_scrolling"
             app:destination="@id/navigation_places_scrolling" />
+        <action
+            android:id="@+id/action_navigation_places_to_navigation_my_places"
+            app:destination="@id/navigation_my_places" />
     </fragment>
 
     <fragment
@@ -39,6 +42,16 @@
         android:name="com.mfc.celiacare.ui.places.MapFragment"
         android:label="@string/places_map"
         tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/navigation_my_places"
+        android:name="com.mfc.celiacare.ui.places.MyPlacesFragment"
+        android:label="@string/places_my_places"
+        tools:layout="@layout/fragment_my_places" >
+        <action
+            android:id="@+id/action_navigation_my_places_to_navigation_places_scrolling"
+            app:destination="@id/navigation_places_scrolling" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_news"
