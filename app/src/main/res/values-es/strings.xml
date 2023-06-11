@@ -66,4 +66,10 @@
     <string name="remove_favplace_message2">de tus favoritos?</string>
     <string name="place_removed_fav">Establecimiento eliminado de favoritos</string>
     <string name="title_back">Volver</string>
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="current_password">Contraseña actual</string>
+    <string name="new_password">Nueva contraseña</string>
+    <string name="change">Cambiar</string>
+    <string name="password_changed">Contraseña cambiada correctamente</string>
 </resources>
