@@ -8,7 +8,6 @@
     <string name="registro">Crear una cuenta nueva</string>
     <string name="contra">Contraseña</string>
     <string name="mostrar_contra">Mostrar contraseña</string>
-    <string name="title_community">Comunidad</string>
     <string name="title_news">Noticias</string>
     <string name="title_register">Nuevo usuario</string>
     <string name="already_registered">¿Estás ya registrado?</string>
@@ -66,4 +65,5 @@
     <string name="remove_favplace_message">¿Estás seguro que quieres borrar</string>
     <string name="remove_favplace_message2">de tus favoritos?</string>
     <string name="place_removed_fav">Establecimiento eliminado de favoritos</string>
+    <string name="title_back">Volver</string>
 </resources>
