@@ -68,7 +68,8 @@
                 android:layout_marginTop="72dp"
                 android:background="@drawable/homeicons_bg"
                 android:orientation="horizontal"
-                android:padding="3dp">
+                android:padding="3dp"
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -111,7 +112,8 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/homeicons_bg"
                 android:orientation="horizontal"
-                android:padding="3dp">
+                android:padding="3dp"
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -156,7 +158,8 @@
                 android:orientation="horizontal"
                 android:padding="3dp"
                 android:paddingBottom="10dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:foreground="?android:attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="wrap_content"

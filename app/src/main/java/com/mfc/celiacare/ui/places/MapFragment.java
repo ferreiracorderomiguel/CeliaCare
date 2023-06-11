@@ -116,7 +116,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void pointToExactLocation() {
         getExactCoordinates();
-        LatLng myLocation = new LatLng(36.9171211, -6.0621644);
+        LatLng myLocation = new LatLng(myLatitude, myLongitude);
         mMap.addMarker(new MarkerOptions()
                 .position(myLocation)
                 .title(getString(R.string.your_location))

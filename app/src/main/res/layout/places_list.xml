@@ -20,7 +20,8 @@
             android:id="@+id/list_image"
             android:layout_width="128dp"
             android:layout_height="128dp"
-            android:src="@drawable/establecimientos" />
+            android:src="@drawable/establecimientos"
+            android:scaleType="centerCrop"/>
     </LinearLayout>
 
     <TextView
