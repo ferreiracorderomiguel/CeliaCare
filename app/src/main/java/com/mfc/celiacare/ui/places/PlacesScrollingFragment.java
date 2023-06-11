@@ -187,8 +187,6 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         String[] parts = coordinates.split(",");
         latitude = Double.valueOf(parts[0].trim());
         longitude = Double.valueOf(parts[1].trim());
-
-        Log.d("Coordinates", "Latitude: " + latitude + " Longitude: " + longitude);
     }
 
     @Override

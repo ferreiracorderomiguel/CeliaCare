@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.MyPlacesAdapter;
@@ -47,6 +50,7 @@ public class MyPlacesFragment extends Fragment {
     List<Places> placesList = new ArrayList<>();
     List<String> favPlacesStringList = new ArrayList<>();
     List<Places> favPlacesList = new ArrayList<>();
+    LinearLayout llNoFavPlaces;
 
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
 
@@ -73,6 +77,7 @@ public class MyPlacesFragment extends Fragment {
     }
 
     private void initializeElements(View view) {
+        llNoFavPlaces = view.findViewById(R.id.llNoFavPlaces);
         recyclerMyPlaces = view.findViewById(R.id.recyclerViewMyPlaces);
         recyclerMyPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerMyPlaces.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
@@ -81,6 +86,10 @@ public class MyPlacesFragment extends Fragment {
         myPlacesAdapter.setPlacesFragment(this);
 
         recyclerMyPlaces.setAdapter(myPlacesAdapter);
+        Button btnBack = view.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
     }
 
     private void initializeFirebase() {
@@ -163,6 +172,8 @@ public class MyPlacesFragment extends Fragment {
         }
 
         myPlacesAdapter.notifyDataSetChanged();
+
+        showMessageEmptyList();
     }
 
     public void openPlaceDetails(Places place){
@@ -180,19 +191,26 @@ public class MyPlacesFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String formattedEmail = currentUser.getEmail().replace(".", "_");
-                DatabaseReference placeRef = databaseReferenceFavPlaces.child(formattedEmail).child(place.getName());
+                DatabaseReference userRef = databaseReferenceFavPlaces.child(formattedEmail);
 
-                placeRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                Query query = userRef.orderByValue().equalTo(place.getName());
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("DeletePlace", "Place removed successfully");
-                        favPlacesList.remove(place);
-                        myPlacesAdapter.notifyDataSetChanged();
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                snapshot.getRef().removeValue();
+                            }
+
+                            favPlacesList.remove(place);
+                            myPlacesAdapter.notifyDataSetChanged();
+                            showMessageEmptyList();
+                        }
                     }
-                }).addOnFailureListener(new OnFailureListener() {
+
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("DeletePlace", "Failed to remove place: " + e.getMessage());
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("DeletePlace", "Failed to remove place: " + databaseError.getMessage());
                     }
                 });
             }
@@ -208,4 +226,11 @@ public class MyPlacesFragment extends Fragment {
         dialog.show();
     }
 
+    private void showMessageEmptyList() {
+        if (favPlacesList.isEmpty()) {
+            llNoFavPlaces.setVisibility(View.VISIBLE);
+        } else {
+            llNoFavPlaces.setVisibility(View.GONE);
+        }
+    }
 }

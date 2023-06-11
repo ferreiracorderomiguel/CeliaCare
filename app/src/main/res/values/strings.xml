@@ -9,7 +9,6 @@
     <string name="contra">Password</string>
     <string name="correo" translatable="false">Email</string>
     <string name="mostrar_contra">Show password</string>
-    <string name="title_community">Community</string>
     <string name="title_news">News</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_register">New user</string>
@@ -72,4 +71,5 @@
     <string name="remove_favplace_message">Are you sure that you want to delete</string>
     <string name="remove_favplace_message2">from favorites?</string>
     <string name="place_removed_fav">This place has been removed from your favorites</string>
+    <string name="title_back">Back</string>
 </resources>

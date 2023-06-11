@@ -74,5 +74,6 @@
         android:layout_centerVertical="true"
         android:src="@drawable/ic_delete"
         android:layout_marginRight="10dp"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"/>
 </RelativeLayout>
