@@ -67,6 +67,9 @@ public class PlacesFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        getPlacesFromFirebase();
+        loadPlacesImages();
+
         super.onViewCreated(view, savedInstanceState);
         btnMap = view.findViewById(R.id.btnMap);
         btnMap.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +86,6 @@ public class PlacesFragment extends Fragment {
             }
         });
 
-        getPlacesFromFirebase();
-        loadPlacesImages();
         initializeElements(view);
     }
 
@@ -176,29 +177,29 @@ public class PlacesFragment extends Fragment {
                     File localFile = new File(getContext().getFilesDir(), imageName);
 
                     if (localFile.exists()) {
-                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
-                            imagesMap.put(imageName, bitmap);
-                        } else {
-                            item.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
-                                    imagesMap.put(imageName, bitmap);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.e("TAG", "Failed to download image: " + imageName);
-                                }
-                            });
-                        }
+                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
+                        imagesMap.put(imageName, bitmap);
+                    } else {
+                        item.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
+                                imagesMap.put(imageName, bitmap);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("TAG", "Failed to download image: " + imageName);
+                            }
+                        });
                     }
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(Exception e) {
-                    Log.e("TAG", "Failed to retrieve image list: " + e.getMessage());
-                }
-            });
-        }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                Log.e("TAG", "Failed to retrieve image list: " + e.getMessage());
+            }
+        });
+    }
 }

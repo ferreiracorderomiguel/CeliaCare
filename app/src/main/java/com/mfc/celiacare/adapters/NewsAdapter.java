@@ -1,6 +1,7 @@
 package com.mfc.celiacare.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,17 +15,21 @@ import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.News;
 import com.mfc.celiacare.ui.news.NewsFragment;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     private List<News> newsList;
     private Context context;
     private NewsFragment newsFragment;
+    private Map<String, Bitmap> imagesMap = new HashMap<>();
 
-    public NewsAdapter(List<News> newsList, Context context) {
+    public NewsAdapter(List<News> newsList, Context context, Map<String, Bitmap> imagesMap) {
         this.newsList = newsList;
         this.context = context;
+        this.imagesMap = imagesMap;
     }
 
     @androidx.annotation.NonNull
@@ -36,7 +41,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@androidx.annotation.NonNull ViewHolder holder, int position) {
-        //holder.list_image.setImageResource(placesModelList.get(position).getImage());
+        String imageName = newsList.get(position).getImage();
+        if (imagesMap.containsKey(imageName)) {
+            Bitmap bitmap = imagesMap.get(imageName);
+            holder.newsListImage.setImageBitmap(bitmap);
+        }
         holder.newsTitleTextView.setText(newsList.get(position).getTitle());
         holder.descriptionTextView.setText(newsList.get(position).getDescription());
         holder.lastUpdatedTextView.setText(newsList.get(position).getTimeSinceUpdated());
@@ -63,7 +72,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            newsListImage = itemView.findViewById(R.id.list_image);
+            newsListImage = itemView.findViewById(R.id.newsListImage);
             newsTitleTextView = itemView.findViewById(R.id.newsTitleTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             lastUpdatedTextView = itemView.findViewById(R.id.lastUpdatedTextView);
