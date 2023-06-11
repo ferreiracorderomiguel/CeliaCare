@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:baselineAlignBottom="false"
         android:clickable="true"
-        android:src="@drawable/place_homeicon"
+        android:src="@drawable/ic_not_fav"
         app:fabSize="normal"
         app:layout_anchor="@id/appbarPlaces"
         app:layout_anchorGravity="bottom|right|end"
