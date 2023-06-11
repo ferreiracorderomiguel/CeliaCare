@@ -14,8 +14,6 @@ o
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-m
-=app/src/main/java/com/mfc/celiacare/adapters/NewsAdapter.java,3\7\370c481c49526bb797b92ceb5e9f30c63e3e0275
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 ?

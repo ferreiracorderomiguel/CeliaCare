@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.NewsAdapter;
 import com.mfc.celiacare.model.News;
+import com.mfc.celiacare.services.FirebaseService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,9 +40,10 @@ public class NewsFragment extends Fragment {
     RecyclerView recyclerNews;
     NewsAdapter newsAdapter;
     List<News> newsList = new ArrayList<>();
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    /*FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;*/
     SwipeRefreshLayout swipeNews;
+    FirebaseService firebaseService;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,8 +55,9 @@ public class NewsFragment extends Fragment {
     }
 
     private void initializeFirebase() {
-        firebaseDatabase = FirebaseDatabase.getInstance("https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app");
-        databaseReference = firebaseDatabase.getReference("news");
+        firebaseService = new FirebaseService();
+        /*firebaseDatabase = FirebaseDatabase.getInstance("https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app");
+        databaseReference = firebaseDatabase.getReference("news");*/
     }
 
     @Override
@@ -66,36 +69,24 @@ public class NewsFragment extends Fragment {
     }
 
     private void getNewsFromFirebase() {
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseService.getNews(new FirebaseService.NewsCallback() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                newsList.clear();
-
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    String title = childSnapshot.child("title").getValue(String.class);
-                    String description = childSnapshot.child("description").getValue(String.class);
-                    String image = childSnapshot.child("image").getValue(String.class);
-                    String date = childSnapshot.child("date").getValue(String.class);
-                    String source = childSnapshot.child("source").getValue(String.class);
-                    
-                    String timeSinceUpdated = getLastUpdatedTime(date);
-
-                    News news = new News(title, description, image, date, source, timeSinceUpdated);
-                    newsList.add(news);
-                }
-
-                Collections.reverse(newsList);
+            public void onNewsReceived(List<News> newsList) {
+                NewsFragment.this.newsList.clear();
+                NewsFragment.this.newsList.addAll(newsList);
+                //Collections.reverse(NewsFragment.this.newsList);
                 newsAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("ERROR: ", error.getMessage());
+            public void onFailure(String errorMessage) {
+                Log.e("ERROR: ", errorMessage);
             }
         });
     }
 
-    private String getLastUpdatedTime(String date) {
+
+    /*private String getLastUpdatedTime(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 
         try {
@@ -127,7 +118,7 @@ public class NewsFragment extends Fragment {
         }
 
         return "";
-    }
+    }*/
 
     private void initializeElements(View view) {
         recyclerNews = view.findViewById(R.id.recyclerViewNews);
