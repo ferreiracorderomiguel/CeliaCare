@@ -1,5 +1,7 @@
 package com.mfc.celiacare.ui.news;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,23 +18,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.NewsAdapter;
 import com.mfc.celiacare.model.News;
 import com.mfc.celiacare.services.FirebaseService;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class NewsFragment extends Fragment {
@@ -40,10 +51,9 @@ public class NewsFragment extends Fragment {
     RecyclerView recyclerNews;
     NewsAdapter newsAdapter;
     List<News> newsList = new ArrayList<>();
-    /*FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;*/
     SwipeRefreshLayout swipeNews;
     FirebaseService firebaseService;
+    private Map<String, Bitmap> imagesMap = new HashMap<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,8 +66,6 @@ public class NewsFragment extends Fragment {
 
     private void initializeFirebase() {
         firebaseService = new FirebaseService();
-        /*firebaseDatabase = FirebaseDatabase.getInstance("https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app");
-        databaseReference = firebaseDatabase.getReference("news");*/
     }
 
     @Override
@@ -65,6 +73,7 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getNewsFromFirebase();
+        loadNewsImages();
         initializeElements(view);
     }
 
@@ -74,8 +83,8 @@ public class NewsFragment extends Fragment {
             public void onNewsReceived(List<News> newsList) {
                 NewsFragment.this.newsList.clear();
                 NewsFragment.this.newsList.addAll(newsList);
-                //Collections.reverse(NewsFragment.this.newsList);
                 newsAdapter.notifyDataSetChanged();
+                loadNewsImages();
             }
 
             @Override
@@ -85,47 +94,12 @@ public class NewsFragment extends Fragment {
         });
     }
 
-
-    /*private String getLastUpdatedTime(String date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-
-        try {
-            Date updatedDate = dateFormat.parse(date);
-            Date currentDate = new Date();
-
-            long differenceMillis = currentDate.getTime() - updatedDate.getTime();
-            long differenceMinutes = TimeUnit.MILLISECONDS.toMinutes(differenceMillis);
-
-            if (differenceMinutes < 60) {
-                return differenceMinutes + "m";
-            } else {
-                long differenceHours = TimeUnit.MINUTES.toHours(differenceMinutes);
-                if (differenceHours < 24) {
-                    return differenceHours + " h";
-                } else if (differenceHours < 24 * 30) {
-                    long differenceDays = differenceHours / 24;
-                    return differenceDays + " d";
-                } else if (differenceHours < 24 * 365) {
-                    long differenceMonths = differenceHours / (24 * 30);
-                    return differenceMonths + " M";
-                } else {
-                    long differenceYears = differenceHours / (24 * 365);
-                    return differenceYears + " a";
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return "";
-    }*/
-
     private void initializeElements(View view) {
         recyclerNews = view.findViewById(R.id.recyclerViewNews);
         recyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerNews.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
-        newsAdapter = new NewsAdapter(newsList, getContext());
+        newsAdapter = new NewsAdapter(newsList, getContext(), imagesMap);
         newsAdapter.setNewsFragment(this);
 
         recyclerNews.setAdapter(newsAdapter);
@@ -135,7 +109,7 @@ public class NewsFragment extends Fragment {
             public void onRefresh() {
                 getNewsFromFirebase();
                 swipeNews.setRefreshing(false);
-
+                loadNewsImages();
             }
         });
     }
@@ -145,5 +119,43 @@ public class NewsFragment extends Fragment {
         Bundle args = new Bundle();
         args.putSerializable("news", news);
         navController.navigate(R.id.action_navigation_news_to_navigation_news_scrolling, args);
+    }
+
+    public void loadNewsImages(){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child("news");
+
+        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()) {
+                    final String imageName = item.getName();
+                    File localFile = new File(getContext().getFilesDir(), imageName);
+
+                    if (localFile.exists()) {
+                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
+                        imagesMap.put(imageName, bitmap);
+                    } else {
+                        item.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
+                                imagesMap.put(imageName, bitmap);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("TAG", "Failed to download image: " + imageName);
+                            }
+                        });
+                    }
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                Log.e("TAG", "Failed to retrieve image list: " + e.getMessage());
+            }
+        });
     }
 }
