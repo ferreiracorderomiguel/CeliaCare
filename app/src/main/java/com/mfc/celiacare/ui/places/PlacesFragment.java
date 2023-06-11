@@ -1,6 +1,9 @@
 package com.mfc.celiacare.ui.places;
 
+
 import android.app.AlertDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,19 +21,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.PlacesAdapter;
 import com.mfc.celiacare.model.Places;
 import com.mfc.celiacare.services.FirebaseService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlacesFragment extends Fragment {
 
@@ -39,13 +46,9 @@ public class PlacesFragment extends Fragment {
     RecyclerView recyclerPlaces;
     PlacesAdapter placesAdapter;
     List<Places> placesList = new ArrayList<>();
-    /*FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;*/
     SwipeRefreshLayout swipePlaces;
-    /*FirebaseAuth auth;
-    FirebaseUser currentUser;*/
     FirebaseService firebaseService;
-    private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
+    private Map<String, Bitmap> imagesMap = new HashMap<>();
 
     public PlacesFragment() {}
 
@@ -60,14 +63,6 @@ public class PlacesFragment extends Fragment {
 
     private void initializeFirebase() {
         firebaseService = new FirebaseService();
-
-        /*if (opc == 1) {
-            firebaseDatabase = FirebaseDatabase.getInstance(URL);
-            databaseReference = firebaseDatabase.getReference("places");
-        } else if (opc == 2) {
-            auth = FirebaseAuth.getInstance();
-            currentUser = auth.getCurrentUser();
-        }*/
     }
 
     @Override
@@ -89,6 +84,7 @@ public class PlacesFragment extends Fragment {
         });
 
         getPlacesFromFirebase();
+        loadPlacesImages();
         initializeElements(view);
     }
 
@@ -115,7 +111,7 @@ public class PlacesFragment extends Fragment {
         recyclerPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerPlaces.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
-        placesAdapter = new PlacesAdapter(placesList, getContext());
+        placesAdapter = new PlacesAdapter(placesList, getContext(), imagesMap);
         placesAdapter.setPlacesFragment(this);
 
         recyclerPlaces.setAdapter(placesAdapter);
@@ -125,6 +121,7 @@ public class PlacesFragment extends Fragment {
             public void onRefresh() {
                 getPlacesFromFirebase();
                 swipePlaces.setRefreshing(false);
+                loadPlacesImages();
             }
         });
     }
@@ -168,4 +165,40 @@ public class PlacesFragment extends Fragment {
         });
     }
 
+    public void loadPlacesImages() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child("places");
+        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()) {
+                    final String imageName = item.getName();
+                    File localFile = new File(getContext().getFilesDir(), imageName);
+
+                    if (localFile.exists()) {
+                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
+                            imagesMap.put(imageName, bitmap);
+                        } else {
+                            item.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
+                                    imagesMap.put(imageName, bitmap);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("TAG", "Failed to download image: " + imageName);
+                                }
+                            });
+                        }
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(Exception e) {
+                    Log.e("TAG", "Failed to retrieve image list: " + e.getMessage());
+                }
+            });
+        }
 }

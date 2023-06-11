@@ -2,6 +2,8 @@ package com.mfc.celiacare.ui.places;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,14 +32,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.MyPlacesAdapter;
 import com.mfc.celiacare.adapters.PlacesAdapter;
 import com.mfc.celiacare.model.Places;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyPlacesFragment extends Fragment {
 
@@ -51,6 +60,7 @@ public class MyPlacesFragment extends Fragment {
     List<String> favPlacesStringList = new ArrayList<>();
     List<Places> favPlacesList = new ArrayList<>();
     LinearLayout llNoFavPlaces;
+    private Map<String, Bitmap> imagesMap = new HashMap<>();
 
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
 
@@ -67,6 +77,7 @@ public class MyPlacesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_places, container, false);
 
         initializeFirebase();
+
         return view;
     }
 
@@ -82,7 +93,7 @@ public class MyPlacesFragment extends Fragment {
         recyclerMyPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerMyPlaces.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
-        myPlacesAdapter = new MyPlacesAdapter(favPlacesList, getContext());
+        myPlacesAdapter = new MyPlacesAdapter(favPlacesList, getContext(), imagesMap);
         myPlacesAdapter.setPlacesFragment(this);
 
         recyclerMyPlaces.setAdapter(myPlacesAdapter);
@@ -99,6 +110,7 @@ public class MyPlacesFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
         getPlacesFromFirebase();
+        loadPlacesImages();
         getFavPlacesFromFirebase(currentUser.getEmail());
     }
 
@@ -232,5 +244,42 @@ public class MyPlacesFragment extends Fragment {
         } else {
             llNoFavPlaces.setVisibility(View.GONE);
         }
+    }
+
+    public void loadPlacesImages() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child("places");
+        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()) {
+                    final String imageName = item.getName();
+                    File localFile = new File(getContext().getFilesDir(), imageName);
+
+                    if (localFile.exists()) {
+                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
+                        imagesMap.put(imageName, bitmap);
+                    } else {
+                        item.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getPath());
+                                imagesMap.put(imageName, bitmap);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("TAG", "Failed to download image: " + imageName);
+                            }
+                        });
+                    }
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                Log.e("TAG", "Failed to retrieve image list: " + e.getMessage());
+            }
+        });
     }
 }

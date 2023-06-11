@@ -20,7 +20,8 @@
             android:id="@+id/newsListImage"
             android:layout_width="128dp"
             android:layout_height="128dp"
-            android:src="@drawable/news" />
+            android:src="@drawable/news"
+            android:scaleType="centerCrop"/>
     </LinearLayout>
 
     <TextView
