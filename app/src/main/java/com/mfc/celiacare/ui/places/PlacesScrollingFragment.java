@@ -23,8 +23,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.Places;
 
@@ -35,6 +39,7 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
     private Double longitude;
     private GoogleMap mMap;
     private Places place;
+    FloatingActionButton fab;
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
 
     FirebaseDatabase database;
@@ -82,12 +87,12 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         textViewDescription.setText(place.getDescription());
         TextView textViewPhoneNumber = view.findViewById(R.id.textViewPhoneNumber);
         textViewPhoneNumber.setText(place.getPhoneNumber());
-        FloatingActionButton fab = view.findViewById(R.id.fabPlacesScrolling);
+        fab = view.findViewById(R.id.fabPlacesScrolling);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (currentUser != null) {
-                    savePlaceOnUserProfile(place);
+                    addToFavorites(place.getName());
                 } else {
                     Toast.makeText(getContext(), "You need to be logged in to save a place", Toast.LENGTH_SHORT).show();
                 }
@@ -100,23 +105,75 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         myRef = database.getReference("favplaces");
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
+        checkIfPlaceExistsInFavorites(place.getName());
     }
 
-    private void savePlaceOnUserProfile(Places place) {
-        Toast.makeText(getContext(), getString(R.string.place_save_message_1) + " " + place.getName() + " " + getString(R.string.place_save_message_2), Toast.LENGTH_SHORT).show();
-
+    private void checkIfPlaceExistsInFavorites(String placeName) {
         if (currentUser != null) {
             String userEmail = currentUser.getEmail();
             String userPath = userEmail.replace(".", "_");
 
             DatabaseReference userRef = myRef.child(userPath);
 
-            DatabaseReference placeRef = userRef.push();
-            
-            placeRef.setValue(place.getName());
+            Query query = userRef.orderByValue().equalTo(placeName);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        updateFabIcon(true);
+                    } else {
+                        updateFabIcon(false);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getContext(), "Error checking if place exists", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
+    private void updateFabIcon(boolean isFavorite) {
+        if (isFavorite) {
+            fab.setImageResource(R.drawable.ic_fav);
+        } else {
+            fab.setImageResource(R.drawable.ic_not_fav);
+        }
+    }
+
+    private void addToFavorites(String placeName) {
+        if (currentUser != null) {
+            String userEmail = currentUser.getEmail();
+            String userPath = userEmail.replace(".", "_");
+
+            DatabaseReference userRef = myRef.child(userPath);
+
+            Query query = userRef.orderByValue().equalTo(placeName);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            snapshot.getRef().removeValue();
+                        }
+                        Toast.makeText(getContext(), getString(R.string.place_removed_fav), Toast.LENGTH_SHORT).show();
+                        updateFabIcon(false);
+                    } else {
+                        DatabaseReference placeRef = userRef.push();
+                        placeRef.setValue(placeName);
+                        Toast.makeText(getContext(), getString(R.string.place_save_message_1) + " " + placeName + " " + getString(R.string.place_save_message_2), Toast.LENGTH_SHORT).show();
+                        updateFabIcon(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getContext(), "Error adding/removing place", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
 
     private void initializeMap(View view, Places place) {
         splitCoordinates(place.getCoordinates());
