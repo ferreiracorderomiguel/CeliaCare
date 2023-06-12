@@ -131,6 +131,11 @@ public class PlacesFragment extends Fragment {
         NavController navAccount = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
         args.putSerializable("places", place);
+
+        String imageName = place.getImage();
+        Bitmap image = imagesMap.get(imageName);
+        args.putParcelable("image", image);
+
         navAccount.navigate(R.id.action_navigation_places_to_navigation_places_scrolling, args);
     }
 
