@@ -1,5 +1,6 @@
 package com.mfc.celiacare.ui.places;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,7 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
     DatabaseReference myRef;
     FirebaseAuth auth;
     FirebaseUser currentUser;
+    Bitmap image;
 
 
     public PlacesScrollingFragment() {}
@@ -67,6 +70,8 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         super.onViewCreated(view, savedInstanceState);
 
         place = (Places) getArguments().getSerializable("places");
+        image = getArguments().getParcelable("image");
+
         initializeElements(view, place);
     }
 
@@ -77,6 +82,8 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
     }
 
     private void initializeViewElements(View view, Places place) {
+        ImageView imageViewPlace = view.findViewById(R.id.imageViewPlace);
+        imageViewPlace.setImageBitmap(image);
         TextView textViewName = view.findViewById(R.id.textViewName);
         textViewName.setText(place.getName());
         TextView textViewStreetAddress = view.findViewById(R.id.textViewStreetAddress);
