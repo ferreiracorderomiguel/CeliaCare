@@ -118,6 +118,11 @@ public class NewsFragment extends Fragment {
         NavController navController = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
         args.putSerializable("news", news);
+
+        String imageName = news.getImage();
+        Bitmap image = imagesMap.get(imageName);
+        args.putParcelable("image", image);
+
         navController.navigate(R.id.action_navigation_news_to_navigation_news_scrolling, args);
     }
 

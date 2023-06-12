@@ -1,5 +1,6 @@
 package com.mfc.celiacare.ui.news;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -18,6 +20,8 @@ import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.News;
 
 public class NewsScrollingFragment extends Fragment {
+
+    Bitmap image;
 
     public NewsScrollingFragment() {}
 
@@ -39,6 +43,7 @@ public class NewsScrollingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         News news = (News) getArguments().getSerializable("news");
+        image = getArguments().getParcelable("image");
 
         initializeElements(view, news);
     }
@@ -48,6 +53,8 @@ public class NewsScrollingFragment extends Fragment {
     }
 
     private void initializeTextViews(View view, News news) {
+        ImageView imageViewNews = view.findViewById(R.id.imageViewNews);
+        imageViewNews.setImageBitmap(image);
         TextView textViewTitle = view.findViewById(R.id.textViewTitle);
         textViewTitle.setText(news.getTitle());
         TextView textView = view.findViewById(R.id.textViewNews);
