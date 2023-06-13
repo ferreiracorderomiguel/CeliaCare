@@ -101,7 +101,7 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
                 if (currentUser != null) {
                     addToFavorites(place.getName());
                 } else {
-                    Toast.makeText(getContext(), "You need to be logged in to save a place", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Necesitas iniciar sesión primero", Toast.LENGTH_SHORT).show();
                 }
             }
         });

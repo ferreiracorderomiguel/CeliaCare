@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:paddingTop="590dp"
+        android:paddingTop="540dp"
         android:src="@drawable/phone_bg" />
 
     <ScrollView
