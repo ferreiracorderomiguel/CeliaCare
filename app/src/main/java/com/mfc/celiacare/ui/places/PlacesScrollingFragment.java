@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.Places;
 
-
+/**
+ * Fragment that displays details of a place and its location on the map.
+ */
 public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallback {
 
     private Double latitude;
@@ -50,14 +51,30 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
     FirebaseUser currentUser;
     Bitmap image;
 
-
+    /**
+     * Constructor for the PlacesScrollingFragment class.
+     */
     public PlacesScrollingFragment() {}
 
+    /**
+     * Called when the fragment is being created. This method sets up the fragment
+     * and initializes any necessary variables or resources.
+     *
+     * @param savedInstanceState The saved instance state Bundle.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Inflates the layout for the fragment.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          The parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState The saved instance state Bundle.
+     * @return The View for the fragment's UI.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,6 +82,12 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         return view;
     }
 
+    /**
+     * Called immediately after the view hierarchy of the fragment is created.
+     *
+     * @param view               The View object returned by onCreateView.
+     * @param savedInstanceState The saved instance state Bundle.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -75,12 +98,24 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         initializeElements(view, place);
     }
 
+    /**
+     * Initializes the elements in the fragment's view.
+     *
+     * @param view  The View object returned by onViewCreated.
+     * @param place The Places object representing the place to display.
+     */
     private void initializeElements(View view, Places place) {
         initializeViewElements(view, place);
         initializeFirebase();
         initializeMap(view, place);
     }
 
+    /**
+     * Initializes the view elements in the fragment's layout.
+     *
+     * @param view  The View object returned by onViewCreated.
+     * @param place The Places object representing the place to display.
+     */
     private void initializeViewElements(View view, Places place) {
         ImageView imageViewPlace = view.findViewById(R.id.imageViewPlace);
         imageViewPlace.setImageBitmap(image);
@@ -107,6 +142,9 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         });
     }
 
+    /**
+     * Initializes Firebase database and authentication.
+     */
     private void initializeFirebase() {
         database = FirebaseDatabase.getInstance(URL);
         myRef = database.getReference("favplaces");
@@ -115,6 +153,11 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         checkIfPlaceExistsInFavorites(place.getName());
     }
 
+    /**
+     * Checks if the current place exists in the user's favorites.
+     *
+     * @param placeName The name of the place to check.
+     */
     private void checkIfPlaceExistsInFavorites(String placeName) {
         if (currentUser != null) {
             String userEmail = currentUser.getEmail();
@@ -141,6 +184,11 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         }
     }
 
+    /**
+     * Updates the FAB icon based on whether the place is a favorite or not.
+     *
+     * @param isFavorite Boolean value indicating whether the place is a favorite or not.
+     */
     private void updateFabIcon(boolean isFavorite) {
         if (isFavorite) {
             fab.setImageResource(R.drawable.ic_fav);
@@ -149,6 +197,11 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         }
     }
 
+    /**
+     * Adds or removes the place from the user's favorites.
+     *
+     * @param placeName The name of the place to add or remove.
+     */
     private void addToFavorites(String placeName) {
         if (currentUser != null) {
             String userEmail = currentUser.getEmail();
@@ -182,6 +235,12 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         }
     }
 
+    /**
+     * Initializes the map fragment and sets the place's coordinates.
+     *
+     * @param view  The View object returned by onViewCreated.
+     * @param place The Places object representing the place to display.
+     */
     private void initializeMap(View view, Places place) {
         splitCoordinates(place.getCoordinates());
 
@@ -190,12 +249,22 @@ public class PlacesScrollingFragment extends Fragment implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
     }
 
+    /**
+     * Splits the place's coordinates into latitude and longitude values.
+     *
+     * @param coordinates The coordinates of the place.
+     */
     public void splitCoordinates(String coordinates) {
         String[] parts = coordinates.split(",");
         latitude = Double.valueOf(parts[0].trim());
         longitude = Double.valueOf(parts[1].trim());
     }
 
+    /**
+     * Called when the map is ready to be used.
+     *
+     * @param googleMap The GoogleMap object representing the map.
+     */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;

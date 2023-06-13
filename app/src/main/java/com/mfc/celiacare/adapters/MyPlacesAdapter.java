@@ -88,7 +88,7 @@ public class MyPlacesAdapter extends RecyclerView.Adapter<MyPlacesAdapter.ViewHo
         }
     }
 
-    public void setPlacesFragment(MyPlacesFragment myPlacesFragment) {
+    public void setMyPlacesFragment(MyPlacesFragment myPlacesFragment) {
         this.myPlacesFragment = myPlacesFragment;
     }
 }

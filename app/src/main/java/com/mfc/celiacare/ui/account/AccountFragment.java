@@ -29,6 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mfc.celiacare.R;
 
+/**
+ * A fragment that displays the user account information and provides options to change the password and log out.
+ */
 public class AccountFragment extends Fragment {
 
     FirebaseAuth fAuth;
@@ -40,10 +43,20 @@ public class AccountFragment extends Fragment {
     TextView emailTv;
     Button signOutButton, changePasswordButton;
 
+    /**
+     * Default constructor for the AccountFragment.
+     */
     public AccountFragment() {
 
     }
 
+    /**
+     * Creates a new instance of the AccountFragment.
+     *
+     * @param param1 Unused parameter.
+     * @param param2 Unused parameter.
+     * @return A new instance of the AccountFragment.
+     */
     public static AccountFragment newInstance(String param1, String param2) {
         AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
@@ -51,11 +64,24 @@ public class AccountFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Called when the fragment is created.
+     *
+     * @param savedInstanceState The saved instance state Bundle.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return The View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,6 +95,13 @@ public class AccountFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
+    /**
+     * Called immediately after onCreateView() has returned, but before any saved state has been restored
+     * in to the view.
+     *
+     * @param view               The View returned by onCreateView().
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         nameTv = view.findViewById(R.id.nameTv);
@@ -90,6 +123,9 @@ public class AccountFragment extends Fragment {
         });
     }
 
+    /**
+     * Retrieves the user data and updates the UI with the user's name and email.
+     */
     private void getUserData() {
         if (fUser != null) {
             String name = fUser.getDisplayName();
@@ -100,12 +136,20 @@ public class AccountFragment extends Fragment {
         }
     }
 
+    /**
+     * Called when the fragment is visible to the user and actively running.
+     * This is generally tied to the containing activity's onStart() lifecycle method.
+     * It is a good place to check if the user is logged in and perform any necessary actions.
+     */
     @Override
     public void onStart() {
         super.onStart();
         checkUserStatus();
     }
 
+    /**
+     * Checks the user's login status and navigates to the login screen if the user is not logged in.
+     */
     private void checkUserStatus() {
         if (fUser == null) {
             NavController navController = Navigation.findNavController(getView());
@@ -113,6 +157,9 @@ public class AccountFragment extends Fragment {
         }
     }
 
+    /**
+     * Displays an alert dialog for changing the user's password.
+     */
     private void changePassword() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle(getString(R.string.change_password));
@@ -189,7 +236,14 @@ public class AccountFragment extends Fragment {
         dialog.show();
     }
 
-
+    /**
+     * Checks the validity of the password entered by the user.
+     *
+     * @param currentPassword The user's current password.
+     * @param newPassword     The new password entered by the user.
+     * @param newPassword2    The confirmation of the new password entered by the user.
+     * @return An error message if the password is invalid, an empty string otherwise.
+     */
     private String checkPassword(String currentPassword, String newPassword, String newPassword2) {
         if (currentPassword.isEmpty()) {
             return "Introduzca su contraseña actual.";
@@ -209,7 +263,9 @@ public class AccountFragment extends Fragment {
         return ""; // No hay errores
     }
 
-
+    /**
+     * Logs out the current user.
+     */
     private void logout() {
         fAuth.signOut();
         fUser = null;

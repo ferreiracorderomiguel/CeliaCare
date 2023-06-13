@@ -39,6 +39,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Fragment that displays a list of places.
+ */
 public class PlacesFragment extends Fragment {
 
     Button btnMap;
@@ -50,8 +53,19 @@ public class PlacesFragment extends Fragment {
     FirebaseService firebaseService;
     private Map<String, Bitmap> imagesMap = new HashMap<>();
 
+    /**
+     * Default constructor for the PlacesFragment class.
+     */
     public PlacesFragment() {}
 
+    /**
+     * Called to create the view hierarchy associated with the fragment.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          The parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState The previously saved state of the fragment.
+     * @return                   The root view of the fragment's layout.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -61,10 +75,19 @@ public class PlacesFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Initializes Firebase and sets up the FirebaseService instance.
+     */
     private void initializeFirebase() {
         firebaseService = new FirebaseService();
     }
 
+    /**
+     * Called after the view creation to initialize the UI elements and set up listeners.
+     *
+     * @param view               The root view of the fragment.
+     * @param savedInstanceState The previously saved state of the fragment.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         getPlacesFromFirebase();
@@ -89,6 +112,9 @@ public class PlacesFragment extends Fragment {
         initializeElements(view);
     }
 
+    /**
+     * Retrieves the list of places from Firebase and updates the placesList.
+     */
     private void getPlacesFromFirebase() {
         firebaseService.getPlaces(new FirebaseService.PlacesCallback() {
             @Override
@@ -106,7 +132,11 @@ public class PlacesFragment extends Fragment {
         });
     }
 
-
+    /**
+     * Initializes the UI elements and sets up the RecyclerView and SwipeRefreshLayout.
+     *
+     * @param view The root view of the fragment.
+     */
     private void initializeElements(View view) {
         recyclerPlaces = view.findViewById(R.id.recyclerViewPlaces);
         recyclerPlaces.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -127,6 +157,11 @@ public class PlacesFragment extends Fragment {
         });
     }
 
+    /**
+     * Opens the details page for a specific place.
+     *
+     * @param place The place to display details for.
+     */
     public void openPlaceDetails(Places place) {
         NavController navAccount = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
@@ -139,6 +174,11 @@ public class PlacesFragment extends Fragment {
         navAccount.navigate(R.id.action_navigation_places_to_navigation_places_scrolling, args);
     }
 
+    /**
+     * Changes the current view based on the provided view identifier.
+     *
+     * @param view The view identifier. Possible values are "map" and "myPlaces".
+     */
     private void changeView(String view) {
         if (view.equals("map")) {
             NavController navAccount = Navigation.findNavController(getView());
@@ -150,6 +190,9 @@ public class PlacesFragment extends Fragment {
         }
     }
 
+    /**
+     * Opens the "My Places" page if the user is logged in, otherwise displays an alert dialog.
+     */
     private void openMyPlaces() {
         firebaseService.openMyPlaces(new FirebaseService.MyPlacesCallback() {
             @Override
@@ -171,6 +214,9 @@ public class PlacesFragment extends Fragment {
         });
     }
 
+    /**
+     * Loads the images of the places from Firebase Storage and stores them in the imagesMap.
+     */
     public void loadPlacesImages() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("places");

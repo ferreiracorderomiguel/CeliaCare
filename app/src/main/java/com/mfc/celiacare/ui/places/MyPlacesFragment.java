@@ -39,7 +39,6 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.adapters.MyPlacesAdapter;
-import com.mfc.celiacare.adapters.PlacesAdapter;
 import com.mfc.celiacare.model.Places;
 
 import java.io.File;
@@ -49,6 +48,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The `MyPlacesFragment` class is a fragment that displays the user's favorite places.
+ * It retrieves data from Firebase Realtime Database and Firebase Storage, and populates a RecyclerView
+ * with a list of favorite places. The user can swipe to refresh the list, open place details, and delete places.
+ */
 public class MyPlacesFragment extends Fragment {
 
     MyPlacesAdapter myPlacesAdapter;
@@ -66,6 +70,9 @@ public class MyPlacesFragment extends Fragment {
 
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
 
+    /**
+     * Constructs a new instance of the `MyPlacesFragment` class.
+     */
     public MyPlacesFragment() {}
 
     @Override
@@ -73,6 +80,14 @@ public class MyPlacesFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Called to create the view hierarchy associated with the fragment.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          The parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState The previously saved state of the fragment.
+     * @return                   The root view of the fragment's layout.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,6 +98,12 @@ public class MyPlacesFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Called immediately after the view has been created.
+     *
+     * @param view               The View returned by onCreateView(LayoutInflater, ViewGroup, Bundle).
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -90,6 +111,11 @@ public class MyPlacesFragment extends Fragment {
         initializeElements(view);
     }
 
+    /**
+     * Initializes the UI elements.
+     *
+     * @param view The root view of the fragment's layout.
+     */
     private void initializeElements(View view) {
         llNoFavPlaces = view.findViewById(R.id.llNoFavPlaces);
         recyclerMyPlaces = view.findViewById(R.id.recyclerViewMyPlaces);
@@ -97,7 +123,7 @@ public class MyPlacesFragment extends Fragment {
         recyclerMyPlaces.addItemDecoration(new DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL));
 
         myPlacesAdapter = new MyPlacesAdapter(favPlacesList, getContext(), imagesMap);
-        myPlacesAdapter.setPlacesFragment(this);
+        myPlacesAdapter.setMyPlacesFragment(this);
 
         recyclerMyPlaces.setAdapter(myPlacesAdapter);
         Button btnBack = view.findViewById(R.id.btnBack);
@@ -115,6 +141,9 @@ public class MyPlacesFragment extends Fragment {
         });
     }
 
+    /**
+     * Initializes Firebase and gets a reference to the database.
+     */
     private void initializeFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance(URL);
         databaseReferencePlaces = firebaseDatabase.getReference("places");
@@ -126,6 +155,9 @@ public class MyPlacesFragment extends Fragment {
         getFavPlacesFromFirebase(currentUser.getEmail());
     }
 
+    /**
+     * Retrieves places from Firebase and stores them in the "placesList" list.
+     */
     private void getPlacesFromFirebase() {
         databaseReferencePlaces.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -157,6 +189,11 @@ public class MyPlacesFragment extends Fragment {
         });
     }
 
+    /**
+     * Retrieves the user's favorite places from Firebase and stores them in the "favPlacesList" list.
+     *
+     * @param email The email of the current user.
+     */
     private void getFavPlacesFromFirebase(String email) {
         String formattedEmail = email.replace(".", "_");
 
@@ -183,6 +220,9 @@ public class MyPlacesFragment extends Fragment {
         });
     }
 
+    /**
+     * Adds the favorite places to the "favPlacesList" by using the place names stored in the "favPlacesStringList".
+     */
     private void addFavPlacesToList() {
         favPlacesList.clear();
 
@@ -200,6 +240,11 @@ public class MyPlacesFragment extends Fragment {
         showMessageEmptyList();
     }
 
+    /**
+     * Opens the place details screen for the selected place.
+     *
+     * @param place The place object containing the details of the selected place.
+     */
     public void openPlaceDetails(Places place){
         NavController navAccount = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
@@ -207,6 +252,11 @@ public class MyPlacesFragment extends Fragment {
         navAccount.navigate(R.id.action_navigation_my_places_to_navigation_places_scrolling, args);
     }
 
+    /**
+     * Deletes the specified place from the user's favorite places.
+     *
+     * @param place The place object to be deleted.
+     */
     public void deletePlace(Places place) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getString(R.string.remove_favplace_title));
@@ -250,6 +300,9 @@ public class MyPlacesFragment extends Fragment {
         dialog.show();
     }
 
+    /**
+     * Shows a message if the favorite places list is empty.
+     */
     private void showMessageEmptyList() {
         if (favPlacesList.isEmpty()) {
             llNoFavPlaces.setVisibility(View.VISIBLE);
@@ -258,6 +311,9 @@ public class MyPlacesFragment extends Fragment {
         }
     }
 
+    /**
+     * Loads the images of the places from Firebase Storage and stores them in the "imagesMap".
+     */
     public void loadPlacesImages() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("places");
