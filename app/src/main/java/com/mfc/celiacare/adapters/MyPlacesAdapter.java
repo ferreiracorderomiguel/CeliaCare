@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mfc.celiacare.R;
 import com.mfc.celiacare.model.Places;
 import com.mfc.celiacare.ui.places.MyPlacesFragment;
-import com.mfc.celiacare.ui.places.PlacesFragment;
 
 import java.util.HashMap;
 import java.util.List;

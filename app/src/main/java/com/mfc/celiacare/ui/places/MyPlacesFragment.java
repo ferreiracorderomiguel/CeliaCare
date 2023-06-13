@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ public class MyPlacesFragment extends Fragment {
     List<String> favPlacesStringList = new ArrayList<>();
     List<Places> favPlacesList = new ArrayList<>();
     LinearLayout llNoFavPlaces;
+    SwipeRefreshLayout swipeMyPlaces;
     private Map<String, Bitmap> imagesMap = new HashMap<>();
 
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
@@ -84,6 +86,7 @@ public class MyPlacesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadPlacesImages();
         initializeElements(view);
     }
 
@@ -100,6 +103,15 @@ public class MyPlacesFragment extends Fragment {
         Button btnBack = view.findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> {
             getActivity().onBackPressed();
+        });
+        swipeMyPlaces = view.findViewById(R.id.swipeMyPlaces);
+        swipeMyPlaces.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPlacesFromFirebase();
+                swipeMyPlaces.setRefreshing(false);
+                loadPlacesImages();
+            }
         });
     }
 
