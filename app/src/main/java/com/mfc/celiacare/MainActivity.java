@@ -11,13 +11,20 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.mfc.celiacare.databinding.ActivityMainBinding;
-import com.mfc.celiacare.ui.places.PlacesFragment;
 
+/**
+ * The main activity of the application.
+ * This activity serves as the entry point of the app and hosts the navigation components.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    //private PlacesFragment placesFragment;
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState The saved instance state Bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-        /*placesFragment = new PlacesFragment();
-        placesFragment.loadPlacesImages();*/
     }
 
 }

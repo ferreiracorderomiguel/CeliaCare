@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -23,13 +22,21 @@ import com.mfc.celiacare.R;
 
 import java.util.HashMap;
 
+/**
+ * The RegisterActivity class represents an activity that handles the user registration process.
+ * It allows users to create a new account by providing their name, email, and password.
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     EditText editTextName, editTextEmail, editTextPassword1, editTextPassword2;
 
-    // Declaration of FirebaseAuth instance
     private FirebaseAuth mAuth;
 
+    /**
+     * Called when the activity is starting or restarting.
+     *
+     * @param savedInstanceState The saved instance state Bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +49,21 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-
+    /**
+     * Handles the action when the "Back" button is clicked.
+     *
+     * @param view The view that was clicked.
+     */
     public void volver(View view) {
         finish();
     }
 
+    /**
+     * Handles the action when the "Register" button is clicked.
+     *
+     * @param view The view that was clicked.
+     */
     public void register(View view) {
-        // Inputs de la vista
         String name = editTextName.getText().toString();
         String email = editTextEmail.getText().toString();
         String password1 = editTextPassword1.getText().toString();
@@ -59,6 +74,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Registers a new user with the provided email, password, and name.
+     *
+     * @param email     The email address of the user.
+     * @param password1 The password of the user.
+     * @param name      The name of the user.
+     */
     private void registerUser(String email, String password1, String name) {
         mAuth.createUserWithEmailAndPassword(email, password1)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -94,6 +116,15 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Checks the format of the user account information (name, email, password).
+     *
+     * @param name      The name of the user.
+     * @param email     The email address of the user.
+     * @param password1 The password of the user.
+     * @param password2 The confirmation password of the user.
+     * @return True if the format of the user account information is valid, false otherwise.
+     */
     private boolean checkAccountFormat(String name, String email, String password1, String password2){
         if (name == null || name.isEmpty()){
             editTextName.setError(getString(R.string.name_required));

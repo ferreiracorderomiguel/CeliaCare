@@ -8,8 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import android.text.InputType;
 import android.util.Patterns;
@@ -36,6 +34,11 @@ import com.mfc.celiacare.R;
 
 import java.util.HashMap;
 
+/**
+ * The LoginFragment class represents a fragment that handles the user login functionality.
+ * It allows users to sign in using their email and password, register for a new account,
+ * and recover their forgotten password.
+ */
 public class LoginFragment extends Fragment {
 
     EditText editTextCorreo, editTextContra;
@@ -46,10 +49,18 @@ public class LoginFragment extends Fragment {
     private String lastEmailNoAuth = "";
     private int triesLoginNoAuth = 0;
 
+    /**
+     * Constructs a new instance of LoginFragment.
+     */
     public LoginFragment() {
         super();
     }
 
+    /**
+     * Creates a new instance of LoginFragment.
+     *
+     * @return A new instance of LoginFragment.
+     */
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
@@ -57,12 +68,19 @@ public class LoginFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Called when the fragment is starting.
+     */
     @Override
     public void onStart() {
         super.onStart();
-        //checkUserStatus();
     }
 
+    /**
+     * Called to do initial creation of the fragment.
+     *
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,12 +88,26 @@ public class LoginFragment extends Fragment {
         fAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return The View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
+    /**
+     * Called immediately after onCreateView() has returned, but before any saved state has been restored in to the view.
+     *
+     * @param view               The View returned by onCreateView().
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -86,7 +118,7 @@ public class LoginFragment extends Fragment {
         textoRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irAFragmentRegistro();
+                goToRegisterActivity();
             }
         });
 
@@ -121,11 +153,17 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void irAFragmentRegistro() {
+    /**
+     * Navigates to the registration fragment.
+     */
+    private void goToRegisterActivity() {
         Intent intent = new Intent(getActivity(), RegisterActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Handles the sign-in process when the login button is clicked.
+     */
     private void iniciarSesion() {
         String email = editTextCorreo.getText().toString();
         String password = editTextContra.getText().toString();
@@ -171,6 +209,12 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    /**
+     * Checks if the email requires additional verification.
+     *
+     * @param email The email address.
+     * @return True if the email requires additional verification, False otherwise.
+     */
     private boolean checkNoVerification(String email) {
         if (lastEmailNoAuth.equals(email)) {
             if (triesLoginNoAuth > 2) {
@@ -188,6 +232,13 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    /**
+     * Validates the user account information.
+     *
+     * @param email    The email address.
+     * @param password The password.
+     * @return True if the account information is valid, False otherwise.
+     */
     private boolean checkAccountValidation(String email, String password) {
         if (email.isEmpty()) {
             editTextCorreo.setError(getString(R.string.email_required));
@@ -209,6 +260,9 @@ public class LoginFragment extends Fragment {
         return true;
     }
 
+    /**
+     * Handles the password recovery process when the "Forgot Password" link is clicked.
+     */
     private void forgotPassword() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getString(R.string.recover_password));
@@ -242,6 +296,11 @@ public class LoginFragment extends Fragment {
         builder.create().show();
     }
 
+    /**
+     * Initiates the password recovery process.
+     *
+     * @param email The email address for password recovery.
+     */
     private void beginRecovery(String email) {
         fAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -259,12 +318,4 @@ public class LoginFragment extends Fragment {
             }
         });
     }
-
-    /*private void checkUserStatus() {
-        FirebaseUser user = fAuth.getCurrentUser();
-        if (user == null) {
-            NavController navController = Navigation.findNavController(getView());
-            navController.navigate(R.id.action_navigation_login_to_navigation_account);
-        }
-    }*/
 }

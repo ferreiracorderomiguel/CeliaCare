@@ -19,31 +19,83 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class provides Firebase-related services for retrieving data from the database.
+ */
 public class FirebaseService {
     private final String URL = "https://celiacare-mfercor326v-default-rtdb.europe-west1.firebasedatabase.app";
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
 
+    /**
+     * Callback interface for retrieving places from the database.
+     */
     public interface PlacesCallback {
+
+        /**
+         * Called when places data is received successfully.
+         *
+         * @param places List of places retrieved from the database.
+         */
         void onPlacesReceived(List<Places> places);
+
+        /**
+         * Called when there is an error retrieving places data.
+         *
+         * @param errorMessage Error message describing the cause of the failure.
+         */
         void onFailure(String errorMessage);
     }
 
+    /**
+     * Callback interface for opening "My Places" section.
+     */
     public interface MyPlacesCallback {
+
+        /**
+         * Called when "My Places" section is opened successfully.
+         */
         void onMyPlacesOpened();
+
+        /**
+         * Called when the user is not logged in.
+         */
         void onUserNotLoggedIn();
     }
 
+    /**
+     * Callback interface for retrieving news from the database.
+     */
     public interface NewsCallback {
+
+        /**
+         * Called when news data is received successfully.
+         *
+         * @param newsList List of news retrieved from the database.
+         */
         void onNewsReceived(List<News> newsList);
+
+        /**
+         * Called when there is an error retrieving news data.
+         *
+         * @param errorMessage Error message describing the cause of the failure.
+         */
         void onFailure(String errorMessage);
     }
 
+    /**
+     * Initializes the FirebaseService with the Firebase Realtime Database URL.
+     */
     public FirebaseService() {
         firebaseDatabase = FirebaseDatabase.getInstance(URL);
     }
 
+    /**
+     * Retrieves places data from the database.
+     *
+     * @param callback Callback to handle the places data.
+     */
     public void getPlaces(final PlacesCallback callback) {
         databaseReference = firebaseDatabase.getReference("places");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -75,6 +127,11 @@ public class FirebaseService {
         });
     }
 
+    /**
+     * Opens the "My Places" section if the user is logged in.
+     *
+     * @param callback Callback to handle the opening of "My Places" section.
+     */
     public void openMyPlaces(final MyPlacesCallback callback) {
         auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
@@ -86,6 +143,11 @@ public class FirebaseService {
         }
     }
 
+    /**
+     * Retrieves news data from the database.
+     *
+     * @param callback Callback to handle the news data.
+     */
     public void getNews(final NewsCallback callback) {
         databaseReference = firebaseDatabase.getReference("news");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -117,6 +179,12 @@ public class FirebaseService {
         });
     }
 
+    /**
+     * Returns the time difference between the given date and the current date as a formatted string.
+     *
+     * @param date The date to compare with the current date.
+     * @return The time difference as a formatted string.
+     */
     private String getLastUpdatedTime(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 

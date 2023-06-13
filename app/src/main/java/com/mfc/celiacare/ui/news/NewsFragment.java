@@ -20,11 +20,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
@@ -35,17 +30,14 @@ import com.mfc.celiacare.model.News;
 import com.mfc.celiacare.services.FirebaseService;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * A fragment that displays a list of news articles.
+ */
 public class NewsFragment extends Fragment {
 
     RecyclerView recyclerNews;
@@ -55,6 +47,14 @@ public class NewsFragment extends Fragment {
     FirebaseService firebaseService;
     private Map<String, Bitmap> imagesMap = new HashMap<>();
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          The parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState The saved state of the fragment.
+     * @return The View for the fragment's UI.
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -64,10 +64,19 @@ public class NewsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Initializes the Firebase service.
+     */
     private void initializeFirebase() {
         firebaseService = new FirebaseService();
     }
 
+    /**
+     * Called immediately after the view has been created.
+     *
+     * @param view               The created view.
+     * @param savedInstanceState The saved state of the fragment.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -77,6 +86,9 @@ public class NewsFragment extends Fragment {
         initializeElements(view);
     }
 
+    /**
+     * Retrieves news articles from Firebase.
+     */
     private void getNewsFromFirebase() {
         firebaseService.getNews(new FirebaseService.NewsCallback() {
             @Override
@@ -94,6 +106,11 @@ public class NewsFragment extends Fragment {
         });
     }
 
+    /**
+     * Initializes the UI elements of the fragment.
+     *
+     * @param view The root view of the fragment.
+     */
     private void initializeElements(View view) {
         recyclerNews = view.findViewById(R.id.recyclerViewNews);
         recyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -114,6 +131,11 @@ public class NewsFragment extends Fragment {
         });
     }
 
+    /**
+     * Opens the details of a news article.
+     *
+     * @param news The news article to display details for.
+     */
     public void openNewsDetails(News news) {
         NavController navController = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
@@ -126,6 +148,9 @@ public class NewsFragment extends Fragment {
         navController.navigate(R.id.action_navigation_news_to_navigation_news_scrolling, args);
     }
 
+    /**
+     * Loads the images for the news articles from Firebase Storage.
+     */
     public void loadNewsImages(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("news");
